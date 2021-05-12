@@ -31,7 +31,9 @@ class HomeController extends Controller
     public function welcome()
     {
         $categorias = Categoria::all();
-        $proyectos = Proyecto::where("financiacionActual", ">" , "meta")->orderByDesc('fechaInicio');
+        //$proyectos = Proyecto::where("financiacionActual", "<" , "meta")->orderByDesc('fechaInicio');
+        $proyectos = Proyecto::all()->sortByDESC('id')->take(3);
+        //dd($proyectos);
         return view('welcome', compact('categorias','proyectos'));
     }
 }

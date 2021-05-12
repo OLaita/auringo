@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
+use Illuminate\Support\Facades\Auth;
 
 class ProyectosController extends Controller
 {
@@ -14,7 +16,8 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        return view('proyecto.crearProyecto');
+        $categorias = Categoria::all();
+        return view('proyecto.crearProyecto',compact('categorias'));
     }
 
     /**
@@ -35,7 +38,24 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = Auth::user()->id;
+        $pathI=$request->file('image')->store('fotosPro','public');
+        Proyecto::create([
+            'title'=>$request->title,
+            'desCorta'=>$request->descC,
+            'meta'=>$request->meta,
+            'financiacionActual'=>0,
+            'description'=>$request->section,
+            'idCategoria'=>$request->cat,
+            'iban'=>$request->iban,
+            'fechaInicio'=>now()->format('Y-m-d'),
+            'fechaFin'=>$request->fechaFin,
+            'fotoProyecto'=>$pathI,
+            'iduser'=>$user
+        ]);
+
+        return redirect()->route('home');
     }
 
     /**

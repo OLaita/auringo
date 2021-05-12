@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Hola</title>
+  <meta name="description" content="Hola">
+  <link rel="icon" type="image/png" href="Imagenes/GatoIcono.png" />
+  <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+    
+    <textarea class="description" name="description"></textarea>
+    <button id="but"> dasdasd</button>
+    <div id="result"></div>
+<script src="tinymce.min.js"></script>
+    <script src="/langs/es_ES.js"></script>
+<script>
+    tinymce.init({
+        selector:'textarea.description',
+        width: 900,
+        height: 300,
+        language: "es_ES",
+        plugins: 'lists',
+        toolbar: 'undo redo | fontselect | styleselect | bold italic | align | numlist bullist'
+    });
+</script>
+    
+    <script>
+        $("document").ready(function(){
+            console.log("Hola");
+            $("#but").click(function(){
+                var f = $("#mce_0_ifr").contents().find("body");
+                console.log(f);
+                var text = "";
+                $(f).each(function(){
+
+                    console.log($(this).text());
+                    text += $(this).html();
+
+                });
+                $("#result").html("");
+                $("#result").html(text);
+            })
+    })
+    </script>
+    
+
+</body>
+</html>
