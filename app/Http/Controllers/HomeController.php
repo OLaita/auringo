@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Plan;
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
 
@@ -36,4 +37,11 @@ class HomeController extends Controller
         //dd($proyectos);
         return view('welcome', compact('categorias','proyectos'));
     }
+
+    public function planes(){
+
+        //$planes = Plan::where('idProyecto',$id);
+        return view('proyecto.planes');
+    }
+
 }

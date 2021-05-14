@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProyectosController;
+use App\Models\Plan;
+use App\Models\Proyecto;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,8 @@ Auth::routes();
 
 Route::resources([
     'gooCont'=>GoogleController::class,
-    'pro'=>ProyectosController::class
+    'pro'=>ProyectosController::class,
+    'home'=>HomeController::class
 ]);
 
 
@@ -40,6 +43,19 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
     Route::put('/google-login', [GoogleController::class, 'googleLogin'])->name('googleLogin');
 
+});
+
+Route::group(['prefix' => 'proyecto'], function () {
+    Route::get('/{title}/planes', function ($title) {
+        $proyectos = Proyecto::where('title',$title)->get();
+        $planes = Plan::where('idProyecto',$proyectos[0]['id']);
+        if(Auth::user()->id == $proyectos[0]['iduser']){
+            return view('proyecto.planes',compact('proyectos','planes'));
+        }
+        return redirect()->route('home');
+
+    })->name("planes");
+    Route::post('/createPlan', [ProyectosController::class, 'storePlanes'])->name("newPlan");
 });
 
 

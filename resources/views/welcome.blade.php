@@ -13,7 +13,13 @@
     <a href="#" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
         <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h3>{{$pro->title}}</h3>
+            <h3>
+                @if (strlen($pro->title) > 17)
+                {{substr($pro->title,0,14)."..."}}
+            @else
+                {{$pro->title}}
+            @endif
+        </h3>
 
 
         <p class="card-text">

@@ -39,6 +39,17 @@ class ProyectosController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'title' => 'required|unique:proyectos|max:17',
+            'descC' => 'required',
+            'meta' => 'required',
+            'description' => 'required',
+            'cat' => 'required',
+            'iban' => 'required',
+            'fechaFin' => 'required',
+            'image' => 'required'
+        ]);
+
         $user = Auth::user()->id;
         $pathI=$request->file('image')->store('fotosPro','public');
         Proyecto::create([
@@ -46,7 +57,7 @@ class ProyectosController extends Controller
             'desCorta'=>$request->descC,
             'meta'=>$request->meta,
             'financiacionActual'=>0,
-            'description'=>$request->section,
+            'section'=>$request->description,
             'idCategoria'=>$request->cat,
             'iban'=>$request->iban,
             'fechaInicio'=>now()->format('Y-m-d'),
@@ -55,7 +66,13 @@ class ProyectosController extends Controller
             'iduser'=>$user
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('planes', ['title' => $request->title]);
+    }
+
+    public function storePlanes(Request $request){
+
+        dd($request->allVent);
+
     }
 
     /**

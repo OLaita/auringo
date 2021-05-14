@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Categoria;
 
 class Proyecto extends Model
 {
@@ -24,4 +25,9 @@ class Proyecto extends Model
         'fechaFin',
         'fotoProyecto'
     ];
+
+
+    public function cate(){
+     return $this->belongsTo('App\Models\Categoria','idCategoria','id');
+ }
 }
