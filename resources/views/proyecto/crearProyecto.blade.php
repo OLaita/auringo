@@ -3,29 +3,28 @@
 @section('content')
     <style>
         .dropzone {
-            width: 80%;
+
             height: 50vh;
             border: 1px solid #999;
             border-radius: 3px;
             text-align: center;
         }
-
-        .upload-icon {
-            margin: 25px 2px 2px 2px;
-        }
-
-        .upload-input {
-            position: absolute;
-    top: 210px;
-    left: 10%;
-    width: 40%;
-    height: 50%;
-    opacity: 0;
-        }
-
         .parteizq {
             width: 40%;
             margin-left:30px;
+        }
+
+        @media ( max-width: 600px){
+            .wrap-chiquito{
+                flex-direction: column;
+            }
+            .miniwidth{
+                width: 100%;
+            }
+            .maxiwidth{
+                justify-content: center;
+                width: 300%;
+            }
         }
 
     </style>
@@ -47,27 +46,27 @@
                         value="{{ old('descC') }}" required autocomplete="descC">
                 </div>
             </div>
-            <div class="d-flex flex-wrap">
-                <div style="width: 60%;" class="row align-items-center justify-content-center flex-wrap">
-                    <div class="dropzone">
-                        <i class="bi bi-cloud-arrow-up-fill upload-icon fa-5x"></i><br>
-                        <input class="upload-input"id="upload-input" name="image" type="file" onchange="previewFile()"><br><br>
-                        <img id="preview"style="max-width:100%"src="" height="150" alt="Image preview...">
+             <div class="container">
+               <div class="row align-items-start wrap-chiquito">
+                   <div class="col-1"></div>
+                   <div class="col-6 d-flex justify-content-center align-items-center miniwidth">
+                        <i style="position: absolute;z-index:-2;"class="bi bi-cloud-arrow-up-fill upload-icon fa-5x"></i><br>
+                        <input style="opacity:0"class="dropzone " id="upload-input" name="image" type="file" onchange="previewFile()"><br><br>
+                        <img id="preview"style="margin-top: 1vh;height: 80%; position: absolute; z-index: -1;max-width: 90%;"src="" height="150" alt="Image preview...">
                     </div>
-                </div>
-                <div class="parteizq">
-                    <div class="col-lg-8">
-                        <div class="col-xs-2 mb-4 flex-column">
+
+                    <div class="col-4">
+                        <div class="mb-2 ">
                             <label for="meta">Meta</label>
-                            <div class="d-flex">
-                                <input id="meta" name="meta" placeholder="3000" type="number" class="form-control"
+                            <div class="d-flex maxiwidth">
+                                <input id="meta" name="meta" placeholder="3000" type="number" class=" form-control"
                                     aria-label="meta" aria-describedby="euros">
                                 <span class="input-group-text" id="euros">€</span>
                             </div>
                         </div>
-                        <div class="col-xs-2 mb-4 flex-column">
+                        <div class="mb-2 ">
                             <label for="cat">Categoria</label>
-                            <select id="cat" name="cat" class="form-control" aria-label="">
+                            <select id="cat" name="cat" class="form-control maxiwidth" aria-label="">
                                 <option selected>Categorias</option>
                                 @foreach ($categorias as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->categoria }}</option>
@@ -75,54 +74,30 @@
 
                             </select>
                         </div>
-                        <div class="col-xs-2 mb-4 flex-column">
+                        <div class="mb-4">
                             <label for="fechaFin">Fecha final</label>
                             <input name="fechaFin" id="fechaFin" value="{{ now()->format('Y-m-d') }}" type="date"
-                                class="form-control">
+                                class="form-control maxiwidth">
                         </div>
-                        <div class="col-xs-2 mb-4 flex-column">
-                            <button type="submit" class="btn btn-primary">
+                        <div class="row mt-4 form-group row d-flex justify-content-center">
+                        <div class=" mb-4">
+                            <button type="submit" class="btn btn-primary btnmini">
                                 {{ __('Crear Proyecto') }}
                             </button>
                         </div>
+                        </div>
                     </div>
+                    <div class="col-1"></div>
                 </div>
-
+        </div>
 
                 <div>
                     <div class="d-flex flex-column">
                         <label for="des">Descripción</label>
                         <textarea id="des" class="description" name="description" required></textarea>
-
-                        <script>ClassicEditor
-                            .create( document.querySelector( '#des' ),{
-                                toolbar: {
-					items: [
-						'heading',
-						'|',
-						'bold',
-						'italic',
-						'underline',
-						'link',
-						'bulletedList',
-						'numberedList',
-						'|',
-						'undo',
-						'redo',
-						'fontFamily',
-						'fontSize',
-						'fontColor'
-					]
-				},
-                language: 'es',
-                            } )
-
-                            .catch( error => {
-                            console.error( error );
-                            } );</script>
                     </div>
 
-                    <div class="row mt-4">
+                    <div class="row mt-4 form-group row d-flex justify-content-center">
                         <div class="col-md-6">
                             <label class="" for="ib">IBAN</label>
                             <input id="ib" type="text" class="form-control" name="iban" required>
@@ -133,7 +108,25 @@
         </form>
     </div>
 
-    <script>/*
+    <script>
+
+    $('#des').trumbowyg({
+                            lang: 'es',
+                                btns: [
+                                ['viewHTML'],
+                                ['undo', 'redo'],
+                                ['fontfamily','fontsize'],
+                                ['formatting'],
+                                ['strong', 'em'],
+                                ['link'],
+                                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                                ['unorderedList', 'orderedList'],
+                                ['horizontalRule'],
+                                ['fullscreen']
+                            ]
+                        });
+
+    /*
 tinymce.init({
             selector: 'textarea.description',
             width: 1000,

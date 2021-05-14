@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
 
         $role_user = Roles::where('rol', 'user')->first();
         $role_admin = Roles::where('rol', 'admin')->first();
-        $avatar = Storage::url('GatoIcono.png');
+        $avatar = Storage::url('usericon.png');
         //dd($role_admin);
 
         $user = new User();

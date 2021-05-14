@@ -5,100 +5,43 @@
 
 
     <div class="container">
-        @foreach ($proyectos as $pro)
-            <script>
-
-                $(document).ready(function() {
-                    var section = {!! json_encode($pro->section) !!};
-                    $('#section').html(section);
-
-
-                    $("#btnplanes").click(function(){
-                        $('#staticBackdrop').modal({backdrop: 'static', keyboard: false})
-                    })
-
-
-                    $("#btnventajas").click(function(){
-                        var i = 0;
-                        $(".vent").each(function(){
-                            i++;
-                        })
-                        $("#ven").append('<input placeholder="Ventajas" id="ventajas" type="text" class="form-control vent" name="ventajas'+i+'">');
-                    })
-
-                    $("#ven").change(function(){
-                        var i = 0;
-                        var t = "<ul>";
-                        $(".vent").each(function(){
-                            t += "<li>"+$("input[name=ventajas"+i+"]").val()+"</li>";
-                            i++;
-                        })
-                            t += "</ul>";
-                        $("#hid").val(t);
-                    })
-
-
-                });
-
-            </script>
-
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-5">
-                    <h1>{{ $pro->title }}</h1>
-                </div>
-            </div>
-
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6">
-                    <h3>{{ $pro->desCorta }}</h3>
-                </div>
-            </div>
-
-            <div class="form-group row d-flex justify-content-center">
-                <div style="height: 350px;" class="col-6 bg-light d-flex align-items-center flex-column">
-                    <img src="{{ asset('storage/' . $pro->fotoProyecto) }}">
-                </div>
-                <div class="col-6 d-flex justify-content-center align-items-center flex-column">
-
-                    <div class="col-xs-2 mb-4 d-flex align-items-center justify-content-center flex-column">
-                        <p>Meta</p>
-                        <div class="d-flex">
-                            <p>{{ $pro->meta }}€</p>
-                        </div>
-                    </div>
-
-                    <p>Categoria</p>
-                    <p>{{ $pro->cate->categoria }}</p>
-                    <div class="col-xs-4 d-flex align-items-center justify-content-center flex-column">
-                        <p>Fecha final</p>
-                        <p>{{ $pro->fechaFin }}</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="d-flex flex-column">
-                <p id="section"></p>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <p>IBAN</p>
-                    <p>{{ $pro->iban }}</p>
-                </div>
-            </div>
-        @endforeach
 
         <div class="mt-4">
 
             <h3>Planes</h3>
 
-            <div class="d-flex">
-                <div></div>
+            <div class="d-flex align-items-center">
+                <div class="d-flex">
+                    @foreach ($planes as $plan)
+                    <script>
 
+                        $(document).ready(function() {
+                            var i = {!! json_encode($plan->id) !!};
+                            $(".ventaj"+i).each(function(){
+                                var vent = {!! json_encode($plan->ventajas) !!};
+                                $(this).append("<br>"+vent);
+                            })
+
+                        })
+                    </script>
+
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title text-muted">Contribuir con {{$plan->precio}}€</h5>
+                          <h4 class="card-subtitle mb-2">{{$plan->nombre}}</h4>
+                          <p class="ventaj{{$plan->id}} card-text">{{$plan->descripcion}}</p>
+                          <form method="POST" action="{{ route("planDes",['id' => $plan->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="card-link btn btn-danger" type="submit">Eliminar</button>
+                          </form>
+                        </div>
+                      </div>
+                    @endforeach
+                </div>
 
 <!-- Button trigger modal -->
-<a id="btnplanes" style="color:#272932"href="#staticBackdrop" role="button" data-toggle="modal"><i class="bi bi-plus-circle fa-4x"></i></a>
+<a id="btnplanes" style="color:#272932"href="#staticBackdrop" role="button" data-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-4x"></i></a>
 
 
 <!-- Modal -->
@@ -111,7 +54,7 @@
       <div class="modal-body">
         <form method="POST" action="{{ route('newPlan') }}" enctype="multipart/form-data">
         @csrf
-
+            <input name="idPro" value="{{$proyectos[0]['id']}}" hidden>
         <div class="row">
             <div class="col-6 border-right">
 
@@ -158,8 +101,77 @@
             </div>
 
         </div>
+
+        <div class="mt-4">
+
+            <h3>Imagenes y Videos Slider</h3>
+            @foreach ($videoImg as $vi)
+                @if ($vi->videoImg == 0)
+                    <img src="{{asset("storage/".$vi->enlace)}}">
+                    <form method="POST" action="{{ route("imgVidDes",['id' => $vi->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                      </form>
+
+                @else
+                <video width="400" controls>
+                    <source src="{{asset("storage/".$vi->enlace)}}" type="video/mp4">
+                  </video>
+                  <form method="POST" action="{{ route("imgVidDes",['id' => $vi->id]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                  </form>
+                @endif
+            @endforeach
+
+            <form method="POST" action="{{ route('newMedia') }}" enctype="multipart/form-data">
+                @csrf
+                <input name="proId" value="{{$proyectos[0]['id']}}" hidden>
+            <input id="campoFile" accept="video/*,image/*" name="media" type="file" value="" />
+            @error('media')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <button type="submit">Subir</button>
+            </form>
+        </div>
+
+
+        <a href="{{route('proyecto', ['title' => $proyectos[0]['title']])}}" class="btn btn-success">Finalizar</a>
+
+
     </div>
 
+    <script>
+$(document).ready(function(){
+
+    $("#btnplanes").click(function(){
+                        $('#staticBackdrop').modal({backdrop: 'static', keyboard: false})
+                    })
+
+
+                    $("#btnventajas").click(function(){
+                        var i = 0;
+                        $(".vent").each(function(){
+                            i++;
+                        })
+                        $("#ven").append('<input placeholder="Ventajas" id="ventajas" type="text" class="form-control vent" name="ventajas'+i+'">');
+                    })
+
+                    $("#ven").change(function(){
+                        var i = 0;
+                        var t = "<ul>";
+                        $(".vent").each(function(){
+                            t += "<li>"+$("input[name=ventajas"+i+"]").val()+"</li>";
+                            i++;
+                        })
+                            t += "</ul>";
+                        $("#hid").val(t);
+                    })
+
+})
+    </script>
 
 
 

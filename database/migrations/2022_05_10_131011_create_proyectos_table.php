@@ -19,7 +19,7 @@ class CreateProyectosTable extends Migration
             $table->string('desCorta');
             $table->integer('meta');
             $table->integer('financiacionActual');
-            $table->string('section')->nullable();
+            $table->string('section',8000)->nullable();
             $table->unsignedBigInteger('idCategoria');
             $table->string('iban');
             $table->unsignedBigInteger('iduser');

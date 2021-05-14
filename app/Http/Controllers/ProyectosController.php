@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
+use App\Models\Plan;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Media;
+use Illuminate\Support\Facades\Validator;
 
 class ProyectosController extends Controller
 {
@@ -71,7 +74,56 @@ class ProyectosController extends Controller
 
     public function storePlanes(Request $request){
 
-        dd($request->allVent);
+        $request->validate([
+            'allVent' => 'required',
+            'name' => 'required',
+            'desc' => 'required',
+            'price' => 'required',
+            'fEnt' => 'required'
+        ]);
+
+        Plan::create([
+            'nombre'=>$request->name,
+            'descripcion'=>$request->desc,
+            'ventajas'=>$request->allVent,
+            'precio'=>$request->price,
+            'participantes'=>0,
+            'fechaEntrega'=>$request->fEnt,
+            'idProyecto'=>$request->idPro
+        ]);
+
+        return back();
+    }
+
+
+    public function storeMedia(Request $request){
+
+        $request->validate([
+            'media' => 'required|mimes:mp4,jpg,png,'
+        ]);
+        //dd($request->media);
+        /*$validator = Validator::make($request->all(),[
+            'media' => 'required|mimes:mp4,jpg,png'
+        ]);*/
+
+        $pathI=$request->file('media')->store('mediaPro','public');
+        $split = explode(".",$pathI);
+
+        if(array_pop($split) == "mp4"){
+            $video = 1;
+        }else{
+            $video = 0;
+        }
+
+        Media::create([
+
+            'enlace'=>$pathI,
+            'videoImg'=>$video,
+            'idProyecto'=>$request->proId
+
+        ]);
+
+        return back();
 
     }
 

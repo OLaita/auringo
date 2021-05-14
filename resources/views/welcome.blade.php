@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-center">
     @foreach ($proyectos as $pro)
 
-    <a href="#" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
+    <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
         <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
         <div class="card-body">
             <h3>

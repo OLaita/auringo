@@ -50,7 +50,7 @@ class GoogleController extends Controller
 
             }else{
 
-                $avatar = Storage::url('GatoIcono.png');
+                $avatar = Storage::url('usericon.png');
                 $user = User::create([
                     'provider' => 'google',
                     'provider_id' => $user->id,

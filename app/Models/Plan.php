@@ -14,6 +14,7 @@ class Plan extends Model
     protected $fillable = [
         'nombre',
         'ventajas',
+        'descripcion',
         'precio',
         'participantes',
         'fechaEntrega',

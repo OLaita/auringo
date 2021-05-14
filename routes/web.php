@@ -6,8 +6,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\ComentariosController;
 use App\Models\Plan;
 use App\Models\Proyecto;
+use App\Models\Media;
+use App\Models\Comentarios;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,13 +31,14 @@ Auth::routes();
 Route::resources([
     'gooCont'=>GoogleController::class,
     'pro'=>ProyectosController::class,
-    'home'=>HomeController::class
+    'home'=>HomeController::class,
+    'com'=>ComentariosController::class
 ]);
 
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/newProject', [App\Http\Controllers\ProyectosController::class, 'index'])->name('newProyect');
+Route::get('/newProject', [App\Http\Controllers\ProyectosController::class, 'index'])->name('newProyect')->middleware('auth');
 
 Route::group(['prefix' => 'auth'], function () {
     /*Route::get('/{provider}', LoginController::class.'@redirectToProvider');
@@ -48,14 +52,42 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'proyecto'], function () {
     Route::get('/{title}/planes', function ($title) {
         $proyectos = Proyecto::where('title',$title)->get();
-        $planes = Plan::where('idProyecto',$proyectos[0]['id']);
+        $planes = Plan::where('idProyecto',$proyectos[0]['id'])->get();
+        $videoImg = Media::where('idProyecto',$proyectos[0]['id'])->get();
         if(Auth::user()->id == $proyectos[0]['iduser']){
-            return view('proyecto.planes',compact('proyectos','planes'));
+            return view('proyecto.planes',compact('proyectos','planes','videoImg'));
         }
         return redirect()->route('home');
 
     })->name("planes");
+
+    Route::delete('/plan/{id}', function($id){
+        $plan = Plan::find($id);
+        $plan->delete();
+
+        return back();
+    })->name('planDes');
+
+    Route::delete('/imgVid/{id}', function($id){
+        $media = Media::find($id);
+        $media->delete();
+
+        return back();
+    })->name('imgVidDes');
+
+    Route::get('/{title}', function ($title) {
+        $proyectos = Proyecto::where('title',$title)->get();
+        $planes = Plan::where('idProyecto',$proyectos[0]['id'])->get();
+        $videoImg = Media::where('idProyecto',$proyectos[0]['id'])->get();
+        $comments = Comentarios::where('idProyecto',$proyectos[0]['id'])->orderBy('created_at','DESC')->get();
+        return view('proyecto.show',compact('proyectos','planes','videoImg','comments'));
+
+    })->name("proyecto");
+
     Route::post('/createPlan', [ProyectosController::class, 'storePlanes'])->name("newPlan");
+    Route::post('/newMedia', [ProyectosController::class, 'storeMedia'])->name("newMedia");
+
+    Route::post('/comment', [ComentariosController::class, 'store'])->name("comment")->middleware('auth');
 });
 
 

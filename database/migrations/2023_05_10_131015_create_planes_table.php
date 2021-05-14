@@ -13,13 +13,14 @@ class CreatePlanesTable extends Migration
      */
     public function up()
     {
-        Schema::create('planes', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->integer('nombre');
+            $table->string('nombre');
+            $table->string('descripcion');
             $table->string('ventajas');
             $table->integer('precio');
             $table->integer('participantes');
-            $table->integer('fechaEntrega');
+            $table->date('fechaEntrega');
             $table->unsignedBigInteger('idProyecto');
             $table->foreign('idProyecto')->references('id')->on('proyectos');
         });
@@ -32,6 +33,6 @@ class CreatePlanesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planes');
+        Schema::dropIfExists('plans');
     }
 }

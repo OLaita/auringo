@@ -17,7 +17,7 @@ class CreatePivotePlanUsuarioTable extends Migration
             $table->id();
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idPlan');
-            $table->foreign('idPlan')->references('id')->on('planes');
+            $table->foreign('idPlan')->references('id')->on('plans');
             $table->foreign('idUsuario')->references('id')->on('users');
         });
     }
