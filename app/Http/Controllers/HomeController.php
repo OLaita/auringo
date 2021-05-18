@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Plan;
 use App\Models\Proyecto;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,9 +35,11 @@ class HomeController extends Controller
     {
         $categorias = Categoria::all();
         //$proyectos = Proyecto::where("financiacionActual", "<" , "meta")->orderByDesc('fechaInicio');
-        $proyectos = Proyecto::all()->sortByDESC('id')->take(3);
-        //dd($proyectos);
-        return view('welcome', compact('categorias','proyectos'));
+        $proyectos = Proyecto::all()->sortByDESC('financiacionActual')->sortByDESC('fechaInicio')->take(3);
+        $totUsuarios = User::all()->count();
+        $totProyectos = Proyecto::all()->count();
+        $sumFinanciacion = Proyecto::all()->sum("financiacionActual");
+        return view('welcome', compact('categorias','proyectos','totUsuarios','totProyectos','sumFinanciacion'));
     }
 
     public function planes(){

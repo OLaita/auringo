@@ -11,7 +11,7 @@
             <h3>Planes</h3>
 
             <div class="d-flex align-items-center">
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                     @foreach ($planes as $plan)
                     <script>
 
@@ -25,11 +25,13 @@
                         })
                     </script>
 
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; margin:10px">
                         <div class="card-body">
                           <h5 class="card-title text-muted">Contribuir con {{$plan->precio}}€</h5>
                           <h4 class="card-subtitle mb-2">{{$plan->nombre}}</h4>
+
                           <p class="ventaj{{$plan->id}} card-text">{{$plan->descripcion}}</p>
+
                           <form method="POST" action="{{ route("planDes",['id' => $plan->id]) }}">
                             @csrf
                             @method('DELETE')
@@ -62,7 +64,7 @@
                 <input placeholder="Nombre" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                 <label for="desc">Descripcion</label>
-                <textarea id="desc" name="desc"></textarea>
+                <textarea style="width:100%"id="desc" name="desc"></textarea>
 
                 <label for="price">Precio</label>
                 <input placeholder="10" id="price" type="number" class="form-control" name="price" value="{{ old('price') }}" required autocomplete="price">
@@ -104,16 +106,19 @@
 
         <div class="mt-4">
 
-            <h3>Imagenes y Videos Slider</h3>
+            <h3>Imagenes y Videos</h3>
+            <div style="justify-content:center"class="d-flex flex-wrap">
             @foreach ($videoImg as $vi)
                 @if ($vi->videoImg == 0)
-                    <img src="{{asset("storage/".$vi->enlace)}}">
+                <div style="margin:10px" class="flex-wrap">
+                    <img style="max-width:300px;max-height: 180px;"src="{{asset("storage/".$vi->enlace)}}">
                     <form method="POST" action="{{ route("imgVidDes",['id' => $vi->id]) }}">
                         @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Eliminar</button>
-                      </form>
 
+                        @method('DELETE')
+                        <button style="margin-top:10px" class="btn btn-danger" type="submit">Eliminar</button>
+                      </form>
+                    </div>
                 @else
                 <video width="400" controls>
                     <source src="{{asset("storage/".$vi->enlace)}}" type="video/mp4">
@@ -125,8 +130,8 @@
                   </form>
                 @endif
             @endforeach
-
-            <form method="POST" action="{{ route('newMedia') }}" enctype="multipart/form-data">
+                </div>
+            <form style="margin-top:30px" method="POST" action="{{ route('newMedia') }}" enctype="multipart/form-data">
                 @csrf
                 <input name="proId" value="{{$proyectos[0]['id']}}" hidden>
             <input id="campoFile" accept="video/*,image/*" name="media" type="file" value="" />
@@ -138,7 +143,7 @@
         </div>
 
 
-        <a href="{{route('proyecto', ['title' => $proyectos[0]['title']])}}" class="btn btn-success">Finalizar</a>
+        <a style="margin-top:15px"  href="{{route('proyecto', ['title' => $proyectos[0]['title']])}}" class="btn btn-success">Finalizar</a>
 
 
     </div>

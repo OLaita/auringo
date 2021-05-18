@@ -104,6 +104,12 @@
     text-decoration: underline;
     color:white;
 }
+@media ( max-width: 1000px){
+  #divdropdown{
+    right: auto;
+    left: 0;
+  }
+}
 
         </style>
 </head>
@@ -124,7 +130,7 @@
                                                           <div class="collapse navbar-collapse " style="margin-top:30px;width:20px;height:20px">
                                                             <form id="fom-busc" class="input-group d-flex align-items-center" action="">
                                                                 <input id="inp-search" type="search">
-                                                                <i style="color:#272932;"class="fa fa-search"></i>
+                                                                <i class="fa fa-search"></i>
                                                               </form>
                                                             </div>
                 <ul class="navbar-nav ml-auto">
@@ -174,7 +180,7 @@
 
               </a>
 
-              <div style="position:absolute;font-size:17px;"class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <div id="divdropdown" style="position:absolute;font-size:17px;"class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <p style="margin-left:6%" >Mi cuenta</p>
 
                 <a style="color:#272932"class="dropdown-item" href="{{ route('logout') }}"
@@ -212,9 +218,22 @@
                     @csrf
                 </form>
                 <p style="margin-left:6%;margin-top:10px">Mis proyectos</p>
+                <hr>
+               @foreach ($misproyectos as $mpro)
+               @if ($mpro->iduser == Auth::user()->id)
 
-                <a class="dropdown-item" href="{{ route('newProyect') }}">
-              <i style="margin-left: 45%;"class="bi bi-plus-circle "></i>
+
+               <a href="{{route('proyecto', ['title' => $mpro->title])}}" class="text-decoration-none text-body">
+                      <div style="margin:3px" class="d-flex">
+                        <img style="max-width:70px;max-height:70px" src="{{asset('storage/'.$mpro->fotoProyecto)}}">
+                        <p>{{$mpro->title}}</p>
+                      </div>
+                    </a>
+                    @endif
+                @endforeach
+
+                <a class="dropdown-item" href="{{ route('newProyect') }}"><i style="margin-left: 45%;"class="bi bi-plus-circle "></i></a>
+
              </a>
 
         </div>
@@ -226,7 +245,6 @@
               </div>
             </div>
           </nav>
-
         <main class="py-4">
             @yield('content')
         </main>

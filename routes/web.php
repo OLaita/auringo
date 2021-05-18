@@ -11,6 +11,7 @@ use App\Models\Plan;
 use App\Models\Proyecto;
 use App\Models\Media;
 use App\Models\Comentarios;
+use App\Models\Novedades;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,14 +81,17 @@ Route::group(['prefix' => 'proyecto'], function () {
         $planes = Plan::where('idProyecto',$proyectos[0]['id'])->get();
         $videoImg = Media::where('idProyecto',$proyectos[0]['id'])->get();
         $comments = Comentarios::where('idProyecto',$proyectos[0]['id'])->orderBy('created_at','DESC')->get();
-        return view('proyecto.show',compact('proyectos','planes','videoImg','comments'));
+        $novedades = Novedades::where('idProyecto',$proyectos[0]['id'])->orderBy('fechaActualizacion','DESC')->get()->chunk(4);
+        return view('proyecto.show',compact('proyectos','planes','videoImg','comments','novedades'));
 
     })->name("proyecto");
 
     Route::post('/createPlan', [ProyectosController::class, 'storePlanes'])->name("newPlan");
     Route::post('/newMedia', [ProyectosController::class, 'storeMedia'])->name("newMedia");
+    Route::post('/newAct', [ProyectosController::class, 'storeAct'])->name('newAct');
 
     Route::post('/comment', [ComentariosController::class, 'store'])->name("comment")->middleware('auth');
+    //Route::put('/comment/update', [ComentariosController::class, 'update'])->name("comment.update");
 });
 
 

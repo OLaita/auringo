@@ -78,7 +78,12 @@ class ComentariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comentarios::find($id);
+        $comment->update([
+            'comentario'=> $request->udCom
+        ]);
+
+        return back();
     }
 
     /**

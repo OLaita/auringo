@@ -8,6 +8,7 @@ use App\Models\Proyecto;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Media;
+use App\Models\Novedades;
 use Illuminate\Support\Facades\Validator;
 
 class ProyectosController extends Controller
@@ -126,6 +127,25 @@ class ProyectosController extends Controller
         return back();
 
     }
+
+
+    public function storeAct(Request $request){
+
+        $request->validate([
+            'name' => 'required',
+            'desc' => 'required'
+        ]);
+        Novedades::create([
+            'idProyecto'=>$request->idPro,
+            'titulo'=>$request->name,
+            'descripcion'=>$request->desc,
+            'fechaActualizacion'=>now()->format('Y-m-d')
+        ]);
+
+        return back();
+    }
+
+
 
     /**
      * Display the specified resource.

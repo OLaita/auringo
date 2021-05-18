@@ -17,8 +17,8 @@ class CreateNovedadesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('idProyecto');
             $table->string('titulo');
-            $table->string('descripción');
-            $table->string('fechaActualización');
+            $table->string('descripcion');
+            $table->string('fechaActualizacion');
             $table->foreign('idProyecto')->references('id')->on('proyectos');
         });
     }

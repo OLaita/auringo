@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Models\Proyecto;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+            view()->composer('*', function ($view)
+            {
+                $misproyectos = Proyecto::all();
+                View::share('misproyectos', $misproyectos );
+            });
     }
 }

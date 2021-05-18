@@ -14,7 +14,7 @@
             margin-left:30px;
         }
 
-        @media ( max-width: 600px){
+        @media ( max-width: 1000px){
             .wrap-chiquito{
                 flex-direction: column;
             }
@@ -59,7 +59,7 @@
                         <div class="mb-2 ">
                             <label for="meta">Meta</label>
                             <div class="d-flex maxiwidth">
-                                <input id="meta" name="meta" placeholder="3000" type="number" class=" form-control"
+                                <input min="1" max="99999999" id="meta" name="meta" placeholder="3000" type="number" class=" form-control"
                                     aria-label="meta" aria-describedby="euros">
                                 <span class="input-group-text" id="euros">€</span>
                             </div>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="row mt-4 form-group row d-flex justify-content-center">
                         <div class=" mb-4">
-                            <button type="submit" class="btn btn-primary btnmini">
+                            <button style="background-color:#272932;border:#272932" type="submit" class="btn btn-primary btnmini">
                                 {{ __('Crear Proyecto') }}
                             </button>
                         </div>

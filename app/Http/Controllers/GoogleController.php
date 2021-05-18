@@ -8,6 +8,7 @@ use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class GoogleController extends Controller
 {
@@ -50,7 +51,8 @@ class GoogleController extends Controller
 
             }else{
 
-                $avatar = Storage::url('usericon.png');
+                //$avatar = Storage::url('usericon.png');
+                $avatar = str_replace('?sz=50', '', $user->avatar);
                 $user = User::create([
                     'provider' => 'google',
                     'provider_id' => $user->id,
