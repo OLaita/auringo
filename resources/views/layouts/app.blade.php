@@ -128,9 +128,10 @@
               <div class="collapse navbar-collapse" id="navbarResponsive">
                                                           <!--BUSCADOR-->
                                                           <div class="collapse navbar-collapse " style="margin-top:30px;width:20px;height:20px">
-                                                            <form id="fom-busc" class="input-group d-flex align-items-center" action="">
-                                                                <input id="inp-search" type="search">
-                                                                <i class="fa fa-search"></i>
+                                                            <form id="fom-busc" class="input-group d-flex align-items-center" action="{{route('search')}}" method="GET">
+                                                              @csrf
+                                                                <input name="search" id="inp-search" type="text">
+                                                                <button type="submit"><i class="fa fa-search"></i></button>
                                                               </form>
                                                             </div>
                 <ul class="navbar-nav ml-auto">
@@ -143,7 +144,7 @@
                         </a>
                   </li>
                   <li class="nav-item active subraya">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Descubrir') }}
+                    <a class="nav-link" href="{{ route('descubrir') }}">{{ __('Descubrir') }}
                         <span class="sr-only">(current)</span></a>
                   </li>
 
@@ -166,7 +167,7 @@
                 </a>
           </li>
           <li style="margin-top:3%" class="nav-item active subraya">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Descubrir') }}
+            <a class="nav-link" href="{{ route('descubrir') }}">{{ __('Descubrir') }}
                 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
@@ -225,8 +226,8 @@
 
                <a href="{{route('proyecto', ['title' => $mpro->title])}}" class="text-decoration-none text-body">
                       <div style="margin:3px" class="d-flex">
-                        <img style="max-width:70px;max-height:70px" src="{{asset('storage/'.$mpro->fotoProyecto)}}">
-                        <p>{{$mpro->title}}</p>
+                        <img style="width: 70px;height: 52px;margin: 5%;" src="{{asset('storage/'.$mpro->fotoProyecto)}}">
+                        <p style="margin-top: 10%;"><strong>{{$mpro->title}}</strong></p>
                       </div>
                     </a>
                     @endif

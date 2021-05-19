@@ -35,17 +35,15 @@ class HomeController extends Controller
     {
         $categorias = Categoria::all();
         //$proyectos = Proyecto::where("financiacionActual", "<" , "meta")->orderByDesc('fechaInicio');
-        $proyectos = Proyecto::all()->sortByDESC('financiacionActual')->sortByDESC('fechaInicio')->take(3);
+        $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->orderByDesc('financiacionActual')->orderByDesc('fechaInicio')->take(3)->get();
         $totUsuarios = User::all()->count();
         $totProyectos = Proyecto::all()->count();
         $sumFinanciacion = Proyecto::all()->sum("financiacionActual");
         return view('welcome', compact('categorias','proyectos','totUsuarios','totProyectos','sumFinanciacion'));
     }
 
-    public function planes(){
+    public function descubrir(){
 
-        //$planes = Plan::where('idProyecto',$id);
-        return view('proyecto.planes');
     }
 
 }

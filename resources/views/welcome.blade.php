@@ -53,7 +53,7 @@
     margin-bottom: 10px;
     padding-left: .5em;
     position: relative;
-    z-index: 9999;
+    z-index: 2;
     display: block;
     height: 20px;
     width: 0%;
@@ -69,6 +69,9 @@
  .iconend{
      max-width: 70px;
  }
+ #icozone{
+     margin-top:5%;
+ }
 
 @media ( max-width: 600px){
     a{
@@ -81,8 +84,16 @@
     }
     #midfild{
         flex-direction: column-reverse;
-
 }
+    .miniico{
+        width: 100vw;
+        margin-left: 40%;
+        margin-top: 15%;
+    }
+    #cohete{
+        max-width: 50%;
+        margin-left: 15%;
+    }
 }
     </style>
 
@@ -140,13 +151,14 @@
             </section>
             <div class="d-flex justify-content-around">
                 <p class="card-text d-flex flex-column"><span><strong>{{ date_diff(new \DateTime($pro->fechaInicio), new \DateTime($pro->fechaFin))->format("%a") }}</strong></span>
-                <span style="color:#7E6969;"><strong>DIAS</strong></span></p>
-            <p  class="card-text d-flex flex-column"><span><strong>{{ $pro->financiacionActual }}</strong></span>
-                <span style="color:#7E6969;"><strong>de {{$pro->meta}}</strong></span></p>
+                <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span></p>
+            <p  class="card-text d-flex flex-column"><span><strong>{{ $pro->financiacionActual }}€</strong></span>
+                <span style="color:#7E6969;"><strong>de {{$pro->meta}}€</strong></span></p>
             </div>
 
         </div>
-    </div></a>
+    </div>
+</a>
 
     @endforeach
 
@@ -154,14 +166,14 @@
 
 <div style="width:100%;justify-content: center;"class="d-flex">
     <div>
-        <button style="background-color:#272932;border:#272932" type="submit" class="btn btn-primary btnmini">
+        <a href="{{route('descubrir')}}" style="background-color:#272932;border:#272932" rolw="button" class="btn btn-primary btnmini">
             {{ __('Descubrir más proyectos') }}
-        </button>
+        </a>
     </div>
 </div>
 
 <div id="midfild" class="d-flex justify-content-around flex-wrap">
-    <img style="margin-top:5%;margin-bottom:5%;max-height:50vh" src="{{asset('storage/start-up.png')}}">
+    <img id="cohete"style="margin-top:5%;margin-bottom:5%;max-height:50vh" src="{{asset('storage/start-up.png')}}">
     <div id="midtext" style="margin-top:5%"class="justify-content-center">
         <h2 style="color:white;"><strong>Empieza ya tu aventura!</strong></h2><br>
         <p>Somos un equipo de apasionados por la cultura y la creatividad que te acompañaremos en toda tu aventura. Con las mejores herramientas, el mayor ecosistema de Europa de mecenas entusiastas del crowdfunding y el porcentaje de éxito más alto del mundo! ¿A qué estás esperando?</p><br>
@@ -172,7 +184,7 @@
 
 </div>
 
-<div id="icozone" class="d-flex justify-content-around icozone">
+<div id="icozone" class="d-flex justify-content-around icozone flex-wrap">
 
     <div class="miniico">
         <img class="iconend"style="margin-top:5%;margin-bottom:5%;max-height:60vh" src="{{asset('storage/user.png')}}">
@@ -184,9 +196,9 @@
         <br> <span>{{ $totProyectos }} Proyectos</span>
     </div>
 
-    <div class=" justify-content-center flex-wrap  miniico">
+    <div class="justify-content-center flex-wrap  miniico">
         <img class="iconend"style="margin-top:5%;margin-bottom:5%;max-height:60vh" src="{{asset('storage/trophy.png')}}">
-        <br><span >{{ $sumFinanciacion}}€ Recaudados</span>
+        <br><span >{{ $sumFinanciacion}}€</span>
     </div>
 
 </div>

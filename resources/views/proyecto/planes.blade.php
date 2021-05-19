@@ -10,7 +10,7 @@
 
             <h3>Planes</h3>
 
-            <div class="d-flex align-items-center">
+            <div class="d-flex flex-wrap align-items-center">
                 <div class="d-flex flex-wrap">
                     @foreach ($planes as $plan)
                     <script>
@@ -120,7 +120,8 @@
                       </form>
                     </div>
                 @else
-                <video width="400" controls>
+                <div style="margin:10px" class="flex-wrap">
+                <video style="max-width:300px;max-height: 180px;" width="400" controls>
                     <source src="{{asset("storage/".$vi->enlace)}}" type="video/mp4">
                   </video>
                   <form method="POST" action="{{ route("imgVidDes",['id' => $vi->id]) }}">
@@ -128,6 +129,7 @@
                     @method('DELETE')
                     <button class="btn btn-danger" type="submit">Eliminar</button>
                   </form>
+                </div>
                 @endif
             @endforeach
                 </div>
