@@ -25,7 +25,7 @@ class CreateProyectosTable extends Migration
             $table->unsignedBigInteger('iduser');
             $table->date('fechaInicio');
             $table->date('fechaFin');
-            $table->string('fotoProyecto');
+            $table->string('fotoProyecto')->nullable();
             $table->foreign('iduser')->references('id')->on('users');
             $table->foreign('idCategoria')->references('id')->on('categorias');
         });

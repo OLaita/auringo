@@ -122,7 +122,14 @@
         </div>
     </div>
 
-
+    @auth
+    @if(Auth::user()->id == $pro->iduser)
+    <form action="{{ route('editarProyecto',['title'=>$pro->title]) }}" method="GET">
+        @csrf
+        <button style="background-color:#272932;border:#272932" class="btn btn-danger">Editar Proyecto</button>
+    </form>
+    @endif
+    @endauth
 
     <div class="row align-items-start wrap-chiquito">
         <div id="carrusmini" style="height: 350px;margin-top:5%" class="col-md-8 col-sm-12 bg-light d-flex align-items-center flex-column caruselchiquito">

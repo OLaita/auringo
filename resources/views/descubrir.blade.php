@@ -34,7 +34,7 @@
     </style>
     <div class="container">
 
-        <h2 >Destacados</h2>
+        <h2 style="color:#212529">Destacados</h2>
         <div style="overflow: hidden;" class="d-flex justify-content-center flex-wrap">
             @foreach ($descPro as $dp)
 
@@ -113,6 +113,8 @@
 
         @foreach ($categorias as $categ)
         <h3 style="color:#212529">{{$categ->categoria}}</h3>
+        <span style="color:#7E6969; margin:5px; float:right"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$categ->categoria])}}>Ver más</a></span>
+
         <!--<div id="carouselCat{{$categ->id}}" class="carousel slide" data-bs-interval="false">
             <div class="carousel-inner slinove">-->
                 <div class="d-flex flex-wrap">
@@ -121,10 +123,10 @@
                             <div class="d-flex">-->
 
                                 {{--{{dd($chunk->where('idCategoria', $categ->id))}}--}}
-                        @foreach($chunk->where('idCategoria', $categ->id)->take(4) as $pro)
+                        @foreach($chunk->where('idCategoria', $categ->id)->take(3) as $pro)
 
                         <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body">
-                            <div class="card" style="width: 13.5rem;margin:30px;">
+                            <div class="card" style="width: 18rem;margin:30px;">
                                 <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h3>

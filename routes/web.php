@@ -86,10 +86,17 @@ Route::group(['prefix' => 'proyecto'], function () {
 
     })->name("planes")->middleware('auth');
 
+    Route::get('/{title}/edit', function($title){
+        $pro = Proyecto::where('title',$title)->first();
+        if(Auth::user()->id == $pro->iduser){
+            return view('proyecto.editarProyecto',compact('pro'));
+        }
+        return redirect()->route('home');
+    })->name('editarProyecto');
+
     Route::delete('/plan/{id}', function($id){
         $plan = Plan::find($id);
         $plan->delete();
-
         return back();
     })->name('planDes');
 
@@ -98,6 +105,14 @@ Route::group(['prefix' => 'proyecto'], function () {
         $media->delete();
         return back();
     })->name('imgVidDes');
+
+    Route::get('/imgPro/{id}', function($id){
+        $proyecto = Proyecto::find($id);
+        $proyecto->update([
+            'fotoProyecto'=>null
+        ]);
+        return back();
+    })->name('imgDel');
 
     Route::get('/{title}', function ($title) {
         $proyectos = Proyecto::where('title',$title)->get();
