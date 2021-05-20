@@ -131,7 +131,7 @@
                                                             <form id="fom-busc" class="input-group d-flex align-items-center" action="{{route('search')}}" method="GET">
                                                               @csrf
                                                                 <input name="search" id="inp-search" type="text">
-                                                                <button type="submit"><i class="fa fa-search"></i></button>
+                                                                <a type="submit"><i class="fa fa-search"></i></a>
                                                               </form>
                                                             </div>
                 <ul class="navbar-nav ml-auto">

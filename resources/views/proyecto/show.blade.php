@@ -1,5 +1,5 @@
-<style>
-    .grafico-barras {
+  <style>
+  .grafico-barras {
         margin-bottom: 1em;
         position: relative;
         width: 80%;
@@ -27,6 +27,13 @@
         height: 20px;
         width: 0%;
     }
+    #imgcarro{
+                max-height: 60vh;
+            }
+    video{
+
+        max-height: 60vh;
+    }
     @media (max-width: 1000px) {
         .wrap-chiquito {
                 flex-direction: column;
@@ -43,6 +50,14 @@
             #carrusmini {
                 height: 200px;
             }
+            #imgcarro{
+                height:55vh;
+            }
+            video{
+
+        max-height:55vh;
+        max-width: 100vw;
+    }
     }
 </style>
 @extends('layouts.app')
@@ -110,22 +125,22 @@
 
 
     <div class="row align-items-start wrap-chiquito">
-        <div id="carrusmini" style="height: 350px;margin-top:5%" class="col-8 bg-light d-flex align-items-center flex-column caruselchiquito">
+        <div id="carrusmini" style="height: 350px;margin-top:5%" class="col-md-8 col-sm-12 bg-light d-flex align-items-center flex-column caruselchiquito">
 
-            <div id="carouselExampleControls" class="col-10 carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+            <div id="carouselExampleControls" class="col-md-10 col-sm-12 carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
                     <div class="carousel-item vidimg">
-                        <img style="max-height:60vh" src="{{asset("storage/".$pro->fotoProyecto)}}" class="d-block w-100" alt="...">
+                        <img id="imgcarro" src="{{asset("storage/".$pro->fotoProyecto)}}" class="d-block w-100" alt="...">
                     </div>
                     @foreach ($videoImg as $vi)
                     @if ($vi->videoImg == 0)
                     <div class="carousel-item vidimg">
-                        <img style="max-height: 60vh;" src="{{asset("storage/".$vi->enlace)}}" class="d-block w-100" alt="...">
+                        <img id="imgcarro" src="{{asset("storage/".$vi->enlace)}}" class="d-block w-100" alt="...">
                     </div>
                     @else
                     <div class="carousel-item vidimg">
-                        <video width="700" height="350" controls>
-                            <source style="max-height: 60vh;" src="{{asset("storage/".$vi->enlace)}}" type="video/mp4">
+                        <video  controls>
+                            <source src="{{asset("storage/".$vi->enlace)}}" type="video/mp4">
                         </video>
                     </div>
 
@@ -144,7 +159,7 @@
             </div>
         </div>
 
-        <div class="col-4 d-flex justify-content-center flex-column">
+        <div class="col-md-4 col-sm-12 d-flex justify-content-center flex-column">
             <section style="margin-top:10%" class="grafico-barras">
                 <ul>
                     <span class="barra-fondo">
@@ -157,10 +172,13 @@
                 <div class="">
                     <p style="font-size:25px"><strong>{{ $pro->financiacionActual }}€</strong></p>
                     <p style="color:#7E6969"><strong>RECAUDADOS DE {{$pro->meta}}€</strong></p>
+
                 </div>
             </div>
+            <div class="col-xs-4 d-flex  justify-content-center flex-column">
             <p style="font-size:25px"><strong>{{ $totPlanes }}</strong></p>
             <p style="color:#7E6969;"><strong>PATROCINADORES</strong></p>
+            </div>
             <div class="col-xs-4 d-flex  justify-content-center flex-column">
                 <p class="card-text d-flex flex-column"><span style="font-size:25px"><strong>{{ date_diff(new \DateTime($pro->fechaInicio), new \DateTime($pro->fechaFin))->format("%a") }}</strong></span>
                     <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span>
@@ -174,8 +192,8 @@
     </div>
     @endforeach
     <br><br><br>
-    <div class="d-flex flex-column">
-        <p id="section"></p>
+    <div style="word-break: break-word;" class="d-flex flex-column flex-wrap col-12">
+        <p style="width:100%" id="section"></p>
     </div>
 
     <div id="planes" class="mt-4">
@@ -273,7 +291,7 @@
                     <div class="carousel-inner slinove">
                         @foreach ($novedades as $chunk)
                         <div class="carousel-item noveas">
-                            <div class="d-flex">
+                            <div class="d-flex flex-wrap">
                                 @foreach ($chunk as $nov)
 
                                 <div class="card nova" style="width: 18rem;margin:20px;">
@@ -307,7 +325,7 @@
         <div class="mt-4">
             <h3>Comentarios</h3>
 
-            <div class="bg-primary text-white text-center w-75">
+            <div class=" text-center w-100">
                 <form class="d-flex justify-content-cente align-items-center flex-column" action="{{ route('comment') }}" method="POST">
                     @csrf
                     <input name="idP" value="{{$proyectos[0]['id']}}" hidden>
@@ -321,26 +339,11 @@
                 </form><br>
                 <div class="flex-column d-flex align-items-center">
                     @foreach ($comments as $comment)
-                    <div style="margin-bottom:10px; padding: 10px;" class="w-75 bg-dark text-white text-left">
-                        <div class="d-flex justify-content-between"><span>{{ $comment->user->name }}</span>
-                            @auth
-                            @if (Auth::user()->hasRole('admin'))
-                            <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
-                                @csrf
-                                @method("DELETE")
-                                <td><button class="btn btn-danger">Borrar</button></td>
-                            </form>
-                            @elseif(Auth::user()->id == $comment->idUser)
-                            <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
-                                @csrf
-                                @method("DELETE")
-                                <td><button class="btn btn-danger">Borrar</button></td>
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Mod
-                                </button>
-                            </form>
-                            @endif
-                            @endauth
+                    <div style="margin-bottom:10px; padding: 10px;word-break: break-word;border: 2px solid grey;" class="w-75 text-left">
+                        <div class="d-flex justify-content-between"><div><img style="width:50px" class="rounded-circle" src="{{ $comment->user->image }}"><span style="margin-left:10px;">{{ $comment->user->name }}</span></div>
+
+
+
                             @if ($comment->updated_at == $comment->created_at)
                             <span class="text-muted">Hace:
                                 @if ($comment->created_at->diff(now()->toDateTimeString())->i == 0)
@@ -352,7 +355,7 @@
                                 {{ $comment->created_at->diff(now()->toDateTimeString())->i }} min
                                 @elseif($comment->created_at->diff(now()->toDateTimeString())->days <= 2) {{ $comment->created_at->diff(now()->toDateTimeString())->days }} dias {{ $comment->created_at->diff(now()->toDateTimeString())->h }} horas {{ $comment->created_at->diff(now()->toDateTimeString())->i }} min @else mucho @endif </span>
                         </div>
-                        <p>{{ $comment->comentario }}</p>
+                        <p style="margin-top:20px">{{ $comment->comentario }}</p>
                         @else
                         <span class="text-muted">Hace:
                             @if ($comment->updated_at->diff(now()->toDateTimeString())->i == 0)
@@ -364,8 +367,26 @@
                             {{ $comment->updated_at->diff(now()->toDateTimeString())->i }} min
                             @elseif($comment->updated_at->diff(now()->toDateTimeString())->days <= 2) {{ $comment->updated_at->diff(now()->toDateTimeString())->days }} dias {{ $comment->updated_at->diff(now()->toDateTimeString())->h }} horas {{ $comment->updated_at->diff(now()->toDateTimeString())->i }} min @else mucho @endif </span>
                     </div>
-                    <p>{{ $comment->comentario }} <span class="text-muted">(Modificado)</span></p>
+                    <p style="margin-top:20px">{{ $comment->comentario }} <span class="text-muted">(Modificado)</span></p>
                     @endif
+                    @auth
+                    @if (Auth::user()->hasRole('admin'))
+                    <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
+                        @csrf
+                        @method("DELETE")
+                        <td><button class="btn btn-danger">Borrar</button></td>
+                    </form>
+                    @elseif(Auth::user()->id == $comment->idUser)
+                    <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
+                        @csrf
+                        @method("DELETE")
+                        <td><button class="btn btn-danger">Borrar</button></td>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Mod
+                        </button>
+                    </form>
+                    @endif
+                    @endauth
                 </div>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -122,13 +122,24 @@
                 $("#al").append("<ul><li>La fecha final del proyecto no puede ser inferior a la actual</li></ul>");
             }
 
-            if ($('input[type="text"]').val().trim() == "") {
+            if ($('#title').val().trim() == "") {
                 error = true;
-                $("#al").append("<ul><li>Hay algun campo vacio</li></ul>");
+                $("#al").append("<ul><li>El titulo esta vacio</li></ul>");
+            }
+
+            if ($('#descC').val().trim() == "") {
+                error = true;
+                $("#al").append("<ul><li>La descripcion esta vacia</li></ul>");
+            }
+
+            if ($('#meta').val().trim() == "") {
+                error = true;
+                $("#al").append("<ul><li>La meta esta vacia</li></ul>");
             }
 
             if (!fn_ValidateIBAN($("#ib").val())) {
                 error = true;
+                $("#al").append("<ul><li>El IBAN esta mal</li></ul>");
             }
 
 

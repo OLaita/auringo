@@ -44,15 +44,23 @@ Route::resources([
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/descubrir', function(){
-    $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->get()->chunk(1);
+    $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->get();
+    $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->get()->chunk(count($proyectos));
+    $descPro = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->orderByDesc('financiacionActual')->orderByDesc('fechaInicio')->take(3)->get();
     $categorias = Categoria::all();
-    return view('descubrir',compact('proyectos','categorias'));
+    return view('descubrir',compact('proyectos','categorias','descPro'));
 })->name('descubrir');
+Route::get("/categoria/{name}", function($name){
+    $categorias = Categoria::all();
+    $categoria = Categoria::where('categoria',$name)->first();
+    $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->where('idCategoria',$categoria->id)->get();
+    return view('categoria',compact('categoria','proyectos','categorias'));
+})->name("buscarCategoria");
 Route::get('/newProject', [App\Http\Controllers\ProyectosController::class, 'index'])->name('newProyect')->middleware('auth');
 
 Route::get('/search',function(Request $request){
     $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->where('title','like','%'.$request->search.'%')->orWhere('desCorta','like','%'.$request->search.'%')->get();
-    $users = User::where('username','like','%'.$request->search.'%')->get();
+    $users = User::where('username','like','%'.$request->search.'%')->orWhere('name','like','%'.$request->search.'%')->orWhere('surname','like','%'.$request->search.'%')->get();
     return view('search',compact('proyectos','users'));
 })->name('search');
 
@@ -93,10 +101,10 @@ Route::group(['prefix' => 'proyecto'], function () {
 
     Route::get('/{title}', function ($title) {
         $proyectos = Proyecto::where('title',$title)->get();
-        $planes = Plan::where('idProyecto',$proyectos[0]['id'])->get();
+        $planes = Plan::where('idProyecto',$proyectos[0]['id'])->orderBy('precio')->get();
         $videoImg = Media::where('idProyecto',$proyectos[0]['id'])->get();
         $comments = Comentarios::where('idProyecto',$proyectos[0]['id'])->orderBy('created_at','DESC')->get();
-        $novedades = Novedades::where('idProyecto',$proyectos[0]['id'])->orderBy('fechaActualizacion','DESC')->get()->chunk(4);
+        $novedades = Novedades::where('idProyecto',$proyectos[0]['id'])->orderBy('fechaActualizacion','DESC')->get()->chunk(3);
         $totPlanes = Plan::where('idProyecto',$proyectos[0]['id'])->sum('participantes');
         return view('proyecto.show',compact('proyectos','planes','videoImg','comments','novedades','totPlanes'));
     })->name("proyecto");

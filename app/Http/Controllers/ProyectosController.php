@@ -43,6 +43,7 @@ class ProyectosController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
             'title' => 'required|unique:proyectos|max:17',
             'descC' => 'required',
@@ -54,8 +55,10 @@ class ProyectosController extends Controller
             'image' => 'required'
         ]);
 
+
         $user = Auth::user()->id;
         $pathI=$request->file('image')->store('fotosPro','public');
+
         Proyecto::create([
             'title'=>$request->title,
             'desCorta'=>$request->descC,
@@ -69,7 +72,6 @@ class ProyectosController extends Controller
             'fotoProyecto'=>$pathI,
             'iduser'=>$user
         ]);
-
         return redirect()->route('planes', ['title' => $request->title]);
     }
 
@@ -172,7 +174,8 @@ class ProyectosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+                    <p style="font-size:25px"><strong></strong></p>
+                    <p style="color:#7E6969"><strong></strong></p>     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

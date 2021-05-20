@@ -37,8 +37,8 @@
 
 </style>
 <div class="container">
-    <h1>Proyectos</h1>
-    <div class="d-flex">
+    <h3 style="color:#212529">Proyectos</h3>
+    <div class="d-flex flex-wrap justify-content-center">
     @foreach ($proyectos as $pro)
 
         <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
@@ -103,13 +103,12 @@
     @endforeach
     </div>
 
-    <h1>Usuarios</h1>
-    <div class="d-flex">
+    <h3 style="color:#212529">Usuarios</h3>
+    <div class="d-flex flex-wrap justify-content-center">
         @foreach ($users as $user)
-
         <a href="" class="text-decoration-none text-body">
             <div class="card" style="width: 18rem;margin:30px;">
-            <img style="height: 200px;" src="{{asset($user->image)}}" class="card-img-top" alt="...">
+            <img style="height: 200px;" src="{{$user->image}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h3>{{$user->name}} {{$user->surname}}</h3>
                 <h5>{{$user->username}}</h5>
@@ -117,10 +116,11 @@
             <p class="card-text">{{$user->pais}}</p>
 
             </div>
-        </div>
-    </a>
+
+        </a>
 
         @endforeach
+    </div>
     </div>
 
 
