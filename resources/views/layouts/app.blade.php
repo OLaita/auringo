@@ -184,16 +184,12 @@
               <div id="divdropdown" style="position:absolute;font-size:17px;"class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <p style="margin-left:6%" >Mi cuenta</p>
 
-                <a style="color:#272932"class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
+                <a style="color:#272932"class="dropdown-item" href="{{ route('perfil',['user'=>Auth::user()->username]) }}">
 
                 <i style="color:#272932;margin-right:10px" class="bi bi-person-circle"></i>{{ __('Perfil') }}
              </a>
 
-             <a class="dropdown-item" href="{{ route('logout') }}"
-             onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
+             <a class="dropdown-item" href="{{ route('perfil2',['user'=>Auth::user()->username]) }}">
 
              <i style="color:#272932;margin-right:10px" class="bi bi-star-fill"></i>{{ __('Proyectos Financiados') }}
           </a>

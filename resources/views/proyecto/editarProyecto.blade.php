@@ -32,8 +32,9 @@
 
     </style>
     <div class="container">
-        <form id="proStore" method="POST" action="" enctype="multipart/form-data">
+        <form id="proUpdate" method="POST" action="{{route('pro.update',$pro->id)}}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group row d-flex justify-content-center">
 
 
@@ -146,7 +147,7 @@
             if (error) {
                 $("#al").removeClass("d-none");
             } else {
-                $("#proStore").submit();
+                $("#proUpdate").submit();
             }
 
 

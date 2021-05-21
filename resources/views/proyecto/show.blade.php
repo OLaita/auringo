@@ -63,6 +63,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     @foreach ($proyectos as $pro)
     <script>
@@ -132,7 +133,7 @@
     @endauth
 
     <div class="row align-items-start wrap-chiquito">
-        <div id="carrusmini" style="height: 350px;margin-top:5%" class="col-md-8 col-sm-12 bg-light d-flex align-items-center flex-column caruselchiquito">
+        <div id="carrusmini" style="height: 20%;margin-top:5%" class="col-md-8 col-sm-12 bg-light d-flex align-items-center flex-column caruselchiquito">
 
             <div id="carouselExampleControls" class="col-md-10 col-sm-12 carousel slide" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
@@ -238,58 +239,50 @@
     </div>
 
     <div class="mt-4">
-        @auth
+            <h3>Novedades</h3>
+            @auth
+            @if (Auth::user()->id == $proyectos[0]['iduser'])
+            <span><a id="btnnovedades" style="color:#272932" href="#staticBackdrop" role="button" data-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-1x"></i></a>
+            </span>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Nueva Actualización</h5>
+                            <i class="bi bi-x-lg" data-dismiss="modal"></i>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('newAct') }}" enctype="multipart/form-data">
+                                @csrf
+                                <input name="idPro" value="{{$proyectos[0]['id']}}" hidden>
+                                <div class="row">
+                                    <div class="col-12 border-right">
 
+                                        <label for="name">Titulo</label>
+                                        <input placeholder="Titulo" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-        @if (Auth::user()->id == $proyectos[0]['iduser'])
+                                        <label for="desc">Descripcion</label>
+                                        <textarea style="width:100%" id="desc" name="desc"></textarea>
 
-
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Nueva Actualización</h5>
-                        <i class="bi bi-x-lg" data-dismiss="modal"></i>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('newAct') }}" enctype="multipart/form-data">
-                            @csrf
-                            <input name="idPro" value="{{$proyectos[0]['id']}}" hidden>
-                            <div class="row">
-                                <div class="col-12 border-right">
-
-                                    <label for="name">Titulo</label>
-                                    <input placeholder="Titulo" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    <label for="desc">Descripcion</label>
-                                    <textarea style="width:100%" id="desc" name="desc"></textarea>
-
+                                    </div>
                                 </div>
-                            </div>
 
 
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- FIN MODAL -->
+            <!-- FIN MODAL -->
 
-        <h3>Novedades <span><a id="btnnovedades" style="color:#272932" href="#staticBackdrop" role="button" data-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-1x"></i></a>
-            </span></h3>
-        @endauth
-        @else
-        <h3>Novedades</h3>
+            @endauth
         @endif
 
         <div class="d-flex align-items-center">

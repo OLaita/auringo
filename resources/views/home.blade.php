@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<div style="flex-wrap:wrap" class=" container d-flex justify-content-around">
+    @foreach ($categorias as $cat)
+        <span style="color:#7E6969; margin:5px"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$cat->categoria])}}>{{$cat->categoria}}</a></span>
+    @endforeach
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

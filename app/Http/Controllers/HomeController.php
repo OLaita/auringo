@@ -28,7 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categorias = Categoria::all();
+        return view('home',compact('categorias'));
     }
 
     public function welcome()

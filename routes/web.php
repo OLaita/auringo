@@ -15,6 +15,7 @@ use App\Models\Comentarios;
 use App\Models\Novedades;
 use App\Models\Categoria;
 use App\Models\User;
+use App\Models\PlanUser;
 use Illuminate\Http\Request;
 
 /*
@@ -74,7 +75,32 @@ Route::group(['prefix' => 'auth'], function () {
 
 });
 
+Route::group(['prefix' => 'perfil'], function () {
+
+    Route::get('/{user}',function($user){
+        $user = User::where('username',$user)->first();
+        $proyectos = Proyecto::where('iduser',$user->id)->get();
+        $planuser = PlanUser::where('idUsuario',$user->id)->get();
+        $finPro = Proyecto::class;
+        return view('user.profile',compact('proyectos','user','planuser','finPro'));
+    })->name('perfil');
+
+    Route::get('/{user}/proyectosFinanciados',function($user){
+        $user = User::where('username',$user)->first();
+        $planuser = PlanUser::where('idUsuario',$user->id)->get();
+        $finPro = Proyecto::class;
+        return view('user.profile2',compact('user','planuser','finPro'));
+    })->name('perfil2');
+
+});
+
+
 Route::group(['prefix' => 'proyecto'], function () {
+
+    Route::resources([
+        'pro'=>ProyectosController::class
+    ]);
+
     Route::get('/{title}/planes', function ($title) {
         $proyectos = Proyecto::where('title',$title)->get();
         $planes = Plan::where('idProyecto',$proyectos[0]['id'])->get();
@@ -131,7 +157,6 @@ Route::group(['prefix' => 'proyecto'], function () {
     Route::post('/newAct', [ProyectosController::class, 'storeAct'])->name('newAct');
 
     Route::post('/comment', [ComentariosController::class, 'store'])->name("comment")->middleware('auth');
-    //Route::put('/comment/update', [ComentariosController::class, 'update'])->name("comment.update");
 });
 
 

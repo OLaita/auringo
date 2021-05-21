@@ -37,7 +37,7 @@
           <div id="paypal-button-container" data-description={{$plan->nombre}} data-price={{$plan->precio}}></div>
         </div>
       </div>
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR" data-sdk-integration-source="button-factory"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Ad22A34HDAXe6cwUPCo7TXf-b7i9qaUFX7qPZ_KOp-xJaiMqO0wTc78nUp6CsdBM2JptKAHjS2K2Du4U&currency=EUR" data-sdk-integration-source="button-factory"></script>
     <script>
       function initPayPalButton() {
         paypal.Buttons({
@@ -57,7 +57,7 @@
 
           onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+              //alert('Transaction completed by ' + details.payer.name.given_name + '!');
               $('#paygood').submit();
             });
 

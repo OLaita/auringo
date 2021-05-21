@@ -13,11 +13,13 @@ class CreatePivotePlanUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('pivote_plan_usuario', function (Blueprint $table) {
+        Schema::create('plan_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idPlan');
+            $table->unsignedBigInteger('idProyecto');
             $table->foreign('idPlan')->references('id')->on('plans');
+            $table->foreign('idProyecto')->references('id')->on('proyectos');
             $table->foreign('idUsuario')->references('id')->on('users');
         });
     }

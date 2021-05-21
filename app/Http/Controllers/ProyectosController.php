@@ -174,14 +174,26 @@ class ProyectosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-                    <p style="font-size:25px"><strong></strong></p>
-                    <p style="color:#7E6969"><strong></strong></p>     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $proyecto = Proyecto::find($id);
+
+        $pathI=$request->file('image')->store('fotosPro','public');
+        $proyecto->update([
+            'title'=>$request->title,
+            'desCorta'=>$request->descC,
+            'meta'=>$request->meta,
+            'section'=>$request->description,
+            'iban'=>$request->iban,
+            'fechaFin'=>$request->fechaFin,
+            'fotoProyecto'=>$pathI
+        ]);
+
+        return redirect()->route('planes', ['title' => $request->title]);
     }
 
     /**

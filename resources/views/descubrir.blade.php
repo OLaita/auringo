@@ -32,89 +32,18 @@
         }
 
     </style>
+    <div style="flex-wrap:wrap" class=" container d-flex justify-content-around">
+        @foreach ($categorias as $cat)
+            <span style="color:#7E6969; margin:5px"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$cat->categoria])}}>{{$cat->categoria}}</a></span>
+        @endforeach
+    </div>
     <div class="container">
-
-        <h2 style="color:#212529">Destacados</h2>
-        <div style="overflow: hidden;" class="d-flex justify-content-center flex-wrap">
-            @foreach ($descPro as $dp)
-
-            <a href="{{route('proyecto', ['title' => $dp->title])}}" class="text-decoration-none text-body">
-                <div class="card" style="width: 18rem;margin:30px;">
-                    <img style="height: 200px;" src="{{asset('storage/' .$dp->fotoProyecto)}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3>
-                            @if (strlen($dp->title) > 17)
-                            {{substr($dp->title,0,14)."..."}}
-                            @else
-                            <strong> {{$dp->title}}</strong>
-                            @endif
-                        </h3>
-
-                        <script>
-                            $(document).ready(function() {
-                                var section = {!!json_encode($dp->financiacionActual)!!};
-                                var meta = {!!json_encode($dp->meta)!!};
-                                var idproj = {!!json_encode($dp->id)!!};
-                                var porcentaje = section * 100;
-                                var porcentaje2 = porcentaje / meta;
-
-                                $("#financioacion" + idproj).data("valor", porcentaje2);
-                                $("#financioacion" + idproj).append(Math.trunc(porcentaje2) + "%");
-
-                                $('.barras').each(function() {
-                                    var dataWidth = $(this).data('valor');
-                                    $(this).css("width", dataWidth + "%");
-                                    if (dataWidth <= 25) {
-                                        $(this).css("background-color", "red");
-                                    } else if (dataWidth > 25 && dataWidth <= 50) {
-                                        $(this).css("background-color", "orange");
-                                    } else if (dataWidth > 50 && dataWidth <= 75) {
-                                        $(this).css("background-color", "yellow");
-                                    } else if (dataWidth > 75) {
-                                        $(this).css("background-color", "green");
-                                    }
-                                });
-
-                            });
-
-                        </script>
-
-                        <p class="card-text">
-                            @if (strlen($dp->desCorta) > 50)
-                            {{substr($dp->desCorta,0,50)."..."}}
-                            @else
-                            {{$dp->desCorta}}
-                            @endif
-                        </p>
-                        <hr>
-                        <section class="grafico-barras">
-                            <ul>
-                                <span class="barra-fondo">
-                                    <li id="financioacion{{$dp->id}}" class="barras d-flex" data-valor=""></li>
-                                </span>
-                                <span class="barra-fondo">
-                            </ul>
-                        </section>
-                        <div class="d-flex justify-content-around">
-                            <p class="card-text d-flex flex-column"><span><strong>{{ date_diff(new \DateTime($dp->fechaInicio), new \DateTime($dp->fechaFin))->format("%a") }}</strong></span>
-                                <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span>
-                            </p>
-                            <p class="card-text d-flex flex-column"><span><strong>{{ $dp->financiacionActual }}€</strong></span>
-                                <span style="color:#7E6969;"><strong>de {{$dp->meta}}€</strong></span>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-            </a>
-
-            @endforeach
-        </div>
-
+    <div style="margin-top:6%"></div>
         @foreach ($categorias as $categ)
+        <div class="d-flex justify-content-between">
         <h3 style="color:#212529">{{$categ->categoria}}</h3>
         <span style="color:#7E6969; margin:5px; float:right"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$categ->categoria])}}>Ver más</a></span>
-
+        </div>
         <!--<div id="carouselCat{{$categ->id}}" class="carousel slide" data-bs-interval="false">
             <div class="carousel-inner slinove">-->
                 <div class="d-flex flex-wrap">

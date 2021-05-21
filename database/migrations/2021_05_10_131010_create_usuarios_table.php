@@ -26,7 +26,7 @@ class CreateUsuariosTable extends Migration
             $table->string('provider')->nullable();
             $table->string('provider_id')->unique()->nullable();
             $table->timestamps();
-            $table->integer('biografia')->nullable();
+            $table->string('biografia')->nullable();
             $table->foreign('rol_id')->references('id')->on('roles');
         });
     }

@@ -96,6 +96,7 @@
     }
 }
     </style>
+
     <div class="container">
 <h3 style="margin-top:4%;color:#212529">{{$categoria->categoria}}</h3>
 <div style="overflow: hidden;"class="d-flex justify-content-center flex-wrap">

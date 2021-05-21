@@ -78,6 +78,9 @@
     a{
         width: 100vh;
     }
+    #btndescubrir{
+        width:100%;
+    }
     #midtext{
         margin:4%;
         width:90%;
@@ -98,7 +101,7 @@
 }
     </style>
 
-<div style="overflow: hidden;"class="d-flex justify-content-center flex-wrap">
+<div style="margin-top:3%;overflow: hidden;"class="d-flex justify-content-center flex-wrap">
     @foreach ($proyectos as $pro)
 
     <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
@@ -167,7 +170,7 @@
 
 <div style="width:100%;justify-content: center;"class="d-flex">
     <div>
-        <a href="{{route('descubrir')}}" style="background-color:#272932;border:#272932" rolw="button" class="btn btn-primary btnmini">
+        <a id="btndescubrir" href="{{route('descubrir')}}" style="background-color:#272932;border:#272932" rolw="button" class="btn btn-primary btnmini">
             {{ __('Descubrir más proyectos') }}
         </a>
     </div>
