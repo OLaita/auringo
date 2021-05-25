@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <style>
     .grafico-barras {
         margin-bottom: 1em;
@@ -39,99 +41,83 @@
         <h3>{{$user->username}}</h3>
     </div>
 
-
     <div class="d-flex flex-wrap justify-content-between">
-        <div style="margin-top:50px" class="col-md-5 ">
+        <div style="margin-top:30px" class="col-md-5 ">
             <h4 style="color:#212529">Datos Personales</h4>
             <hr>
             <p>{{$user->name." ".$user->surname}}</p>
             <p>{{$user->email}}</p>
             <p>{{$user->country}}</p>
         </div>
-        <div style="margin-top:50px" class="col-md-5 ">
+        <div style="margin-top:30px" class="col-md-5 ">
             <div>
                 <h4 style="color:#212529">Biografia</h4>
                 <hr>
                 @if ($user->biografia == null)
                     <p>Aún no tienes biografia</p>
-                @endif
-                <p>{{$user->biografia}}</p>
-            </div>
-
-        </div>
-
-    </div>
-    <h4 style="margin-top:50px;color:#212529">Mis Proyectos</h4>
-    <hr>
-    <div class="d-flex flex-wrap">
-
-        @foreach ($proyectos as $pro)
-
-        <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
-            <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>
-                    @if (strlen($pro->title) > 17)
-                    {{substr($pro->title,0,14)."..."}}
                 @else
-                   <strong> {{$pro->title}}</strong>
+                <p>{{$user->biografia}}</p>
                 @endif
-            </h3>
-
-            <script>
-                $(document).ready(function() {
-                    var section = {!! json_encode($pro->financiacionActual) !!};
-              var meta = {!! json_encode($pro->meta) !!};
-              var idproj= {!! json_encode($pro->id) !!};
-              var porcentaje = section * 100;
-              var porcentaje2=porcentaje/meta;
-
-              $("#financioacion"+idproj).data("valor",porcentaje2);
-              $("#financioacion"+idproj).append(Math.trunc(porcentaje2)+"%");
-
-              $('.barras').each(function() {
-                 var dataWidth = $(this).data('valor');
-                 $(this).css("width", dataWidth + "%");
-                if (dataWidth <=25) { $(this).css("background-color", "red"); }
-                    else if (dataWidth >25 && dataWidth <=50){ $(this).css("background-color", "orange"); }
-                    else if (dataWidth >50 && dataWidth<=75) { $(this).css("background-color", "yellow"); }
-                    else if (dataWidth >75) { $(this).css("background-color", "green"); }
-              });
-
-            });
-            </script>
-
-            <p class="card-text">
-            @if (strlen($pro->desCorta) > 50)
-                {{substr($pro->desCorta,0,50)."..."}}
-            @else
-                {{$pro->desCorta}}
-            @endif</p>
-                <hr>
-                <section class="grafico-barras">
-                    <ul>
-                 <span class="barra-fondo">
-                 <li id="financioacion{{$pro->id}}" class="barras d-flex" data-valor=""></li>
-                 </span>
-                 <span class="barra-fondo">
-                 </ul>
-                </section>
-                <div class="d-flex justify-content-around">
-                    <p class="card-text d-flex flex-column"><span><strong>{{ date_diff(new \DateTime($pro->fechaInicio), new \DateTime($pro->fechaFin))->format("%a") }}</strong></span>
-                    <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span></p>
-                <p  class="card-text d-flex flex-column"><span><strong>{{ $pro->financiacionActual }}€</strong></span>
-                    <span style="color:#7E6969;"><strong>de {{$pro->meta}}€</strong></span></p>
-                </div>
 
             </div>
-        </div>
-    </a>
 
-        @endforeach
+        </div>
+
+    </div>
+    <h4 style="margin-top:50px;color:#212529" class="d-flex justify-content-between">
+    <a role="button" id="mPro">Mis Proyectos</a>
+    <a role="button" id="proF">Proyectos Financiados</a>
+</h4>
+    <hr>
+
+    <div id="projdiv" class="d-flex flex-wrap">
+
+
 
     </div>
 
 
-</div>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url:"{{route('perfil3',['user'=>$user->username])}}",
+                type: 'GET',
+                beforeSend:function () {
+                    $("#projdiv").empty().html('<img src="{{asset("storage/l2.svg")}}">');
+                },
+                success:function(msg){
+                    $("#projdiv").empty().html(msg);
+                }
+            });
 
-@endsection
+            $("#mPro").click(function(){
+                $("#projdiv").focus();
+                $.ajax({
+                    url:"{{route('perfil3',['user'=>$user->username])}}",
+                    type: 'GET',
+                    beforeSend:function () {
+                        $("#projdiv").empty().html('<img src="{{asset("storage/l2.svg")}}">');
+                },
+                    success:function(msg){
+                        $("#projdiv").empty().html(msg);
+                    }
+                });
+            });
+
+            $("#proF").click(function(){
+                $("#projdiv").focus();
+                $.ajax({
+                    url:"{{route('perfil2',['user'=>$user->username])}}",
+                    type: 'GET',
+                    beforeSend:function () {
+                        $("#projdiv").empty().html('<img src="{{asset("storage/l2.svg")}}">');
+                },
+                    success:function(msg){
+                        $("#projdiv").empty().html(msg);
+                    }
+                });
+            });
+        });
+    </script>
+
+    @endsection

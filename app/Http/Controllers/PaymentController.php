@@ -13,7 +13,7 @@ use Session;
 
 class PaymentController extends Controller
 {
-    public function index($id)
+    /*public function index($id)
     {
         return view('pasarela');
     }
@@ -32,7 +32,7 @@ class PaymentController extends Controller
         Session::flash('success', 'Payment successfully made.');
 
         return back();
-    }
+    }*/
 
     public function paymentSuccess(Plan $plan){
         $user = Auth::user()->id;

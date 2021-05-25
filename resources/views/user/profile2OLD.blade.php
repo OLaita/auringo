@@ -41,14 +41,14 @@
 
 
     <div class="d-flex flex-wrap justify-content-between">
-        <div style="margin-top:10%" class="col-md-5 ">
+        <div style="margin-top:30px" class="col-md-5 ">
             <h4 style="color:#212529">Datos Personales</h4>
             <hr>
             <p>{{$user->name." ".$user->surname}}</p>
             <p>{{$user->email}}</p>
             <p>{{$user->country}}</p>
         </div>
-        <div style="margin-top:10%" class="col-md-5 ">
+        <div style="margin-top:30px" class="col-md-5 ">
             <div>
                 <h4 style="color:#212529">Biografia</h4>
                 <hr>
@@ -61,7 +61,7 @@
         </div>
 
     </div>
-    <h1>Proyectos Financiados</h1>
+    <h4 id="proyfin" style="margin-top:50px;color:#212529">Proyectos Financiados</h4>
     <hr>
     <div class="d-flex flex-wrap">
 
@@ -94,10 +94,10 @@
                   $('.barras').each(function() {
                      var dataWidth = $(this).data('valor');
                      $(this).css("width", dataWidth + "%");
-                    if (dataWidth <=25) { $(this).css("background-color", "red"); }
-                        else if (dataWidth >25 && dataWidth <=50){ $(this).css("background-color", "orange"); }
-                        else if (dataWidth >50 && dataWidth<=75) { $(this).css("background-color", "yellow"); }
-                        else if (dataWidth >75) { $(this).css("background-color", "green"); }
+                    if (dataWidth <=25) { $(this).css("background-color", "#DD0426"); }
+                        else if (dataWidth >25 && dataWidth <=50){ $(this).css("background-color", "#EA7317"); }
+                        else if (dataWidth >50 && dataWidth<=75) { $(this).css("background-color", "#F7B32B"); }
+                        else if (dataWidth >75) { $(this).css("background-color", "#5AFF15"); }
                   });
 
                 });

@@ -189,7 +189,7 @@
                 <i style="color:#272932;margin-right:10px" class="bi bi-person-circle"></i>{{ __('Perfil') }}
              </a>
 
-             <a class="dropdown-item" href="{{ route('perfil2',['user'=>Auth::user()->username]) }}">
+             <a class="dropdown-item" href="{{ route('perfil',['user'=>Auth::user()->username]) }}">
 
              <i style="color:#272932;margin-right:10px" class="bi bi-star-fill"></i>{{ __('Proyectos Financiados') }}
           </a>

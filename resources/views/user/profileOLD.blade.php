@@ -30,16 +30,45 @@
         height: 20px;
         width: 0%;
     }
-
-    .caruselchiquito{
-
-    }
-
 </style>
 <div class="container">
-    <h3 style="color:#212529">Proyectos</h3>
-    <div class="d-flex flex-wrap justify-content-center">
-    @foreach ($proyectos as $pro)
+    <div style="margin-top:5%"class="d-flex justify-content-center flex-direction-column">
+        <img style="width:100px"class="rounded-circle" src={{$user->image}}>
+    </div>
+    <div style="color:#212529" class="d-flex justify-content-center flex-direction-column">
+        <h3>{{$user->username}}</h3>
+    </div>
+
+
+    <div class="d-flex flex-wrap justify-content-between">
+        <div style="margin-top:30px" class="col-md-5 ">
+            <h4 style="color:#212529">Datos Personales</h4>
+            <hr>
+            <p>{{$user->name." ".$user->surname}}</p>
+            <p>{{$user->email}}</p>
+            <p>{{$user->country}}</p>
+        </div>
+        <div style="margin-top:30px" class="col-md-5 ">
+            <div>
+                <h4 style="color:#212529">Biografia</h4>
+                <hr>
+                @if ($user->biografia == null)
+                    <p>Aún no tienes biografia</p>
+                @endif
+                <p>{{$user->biografia}}</p>
+            </div>
+
+        </div>
+
+    </div>
+    <h4 style="margin-top:50px;color:#212529" class="d-flex justify-content-between">
+    <span id="mPro">Mis Proyectos</span>
+    <span id="proF">Proyectos Financiados</span>
+</h4>
+    <hr>
+    <div id="projdiv" class="d-flex flex-wrap">
+
+        @foreach ($proyectos as $pro)
 
         <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
             <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
@@ -72,7 +101,7 @@
                         else if (dataWidth >75) { $(this).css("background-color", "#5AFF15"); }
                   });
 
-            });
+                });
             </script>
 
             <p class="card-text">
@@ -100,31 +129,11 @@
             </div>
         </div>
     </a>
-    @endforeach
-    </div>
-
-    <h3 style="color:#212529">Usuarios</h3>
-    <div class="d-flex flex-wrap justify-content-center">
-        @foreach ($users as $user)
-        <a href="{{route('perfil', ['user'=>$user->username])}}" class="text-decoration-none text-body">
-            <div class="card" style="width: 18rem;margin:30px;">
-            <img style="height: 200px;" src="{{$user->image}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>{{$user->name}} {{$user->surname}}</h3>
-                <h5>{{$user->username}}</h5>
-            </div>
-            <p class="card-text">{{$user->pais}}</p>
-
-            </div>
-
-        </a>
 
         @endforeach
-    </div>
+
     </div>
 
 
 </div>
-
-
 @endsection

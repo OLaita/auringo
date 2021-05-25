@@ -51,19 +51,21 @@
 
           createOrder: function(data, actions) {
             return actions.order.create({
-              purchase_units: [{"description":$("#paypal-button-container").data("description"),"amount":{"currency_code":"EUR","value":$("#paypal-button-container").data("price")}}]
+              purchase_units: [{"description":$("#paypal-button-container").data("description"),"amount":{"currency_code":"EUR","value":$("#paypal-button-container").data("price")},"is_final_capture": true}]
             });
           },
 
           onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
               //alert('Transaction completed by ' + details.payer.name.given_name + '!');
+              console.log("BIEN");
               $('#paygood').submit();
             });
 
           },
 
           onError: function(err) {
+            console.log("ERROR");
             console.log(err);
           }
         }).render('#paypal-button-container');

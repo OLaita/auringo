@@ -1,45 +1,5 @@
-@extends('layouts.app')
 
-@section('content')
-<style>
-    .grafico-barras {
-        margin-bottom: 1em;
-        position: relative;
-        width: 80%;
-        height: auto;
-    }
-
-    .barra-fondo {
-        border-radius: 2px;
-        background: #DAE4EB;
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .barras {
-        max-width: 100%;
-        background-color: cyan;
-        .transition(all 1s ease-out);
-        border-radius: 2px;
-        cursor: pointer;
-        margin-bottom: 10px;
-        padding-left: .5em;
-        position: relative;
-        z-index: 2;
-        display: block;
-        height: 20px;
-        width: 0%;
-    }
-
-    .caruselchiquito{
-
-    }
-
-</style>
-<div class="container">
-    <h3 style="color:#212529">Proyectos</h3>
-    <div class="d-flex flex-wrap justify-content-center">
-    @foreach ($proyectos as $pro)
+@foreach ($proyectos as $pro)
 
         <a href="{{route('proyecto', ['title' => $pro->title])}}" class="text-decoration-none text-body"><div class="card" style="width: 18rem;margin:30px;">
             <img style="height: 200px;" src="{{asset('storage/' .$pro->fotoProyecto)}}" class="card-img-top" alt="...">
@@ -72,7 +32,7 @@
                         else if (dataWidth >75) { $(this).css("background-color", "#5AFF15"); }
                   });
 
-            });
+                });
             </script>
 
             <p class="card-text">
@@ -100,31 +60,6 @@
             </div>
         </div>
     </a>
-    @endforeach
-    </div>
-
-    <h3 style="color:#212529">Usuarios</h3>
-    <div class="d-flex flex-wrap justify-content-center">
-        @foreach ($users as $user)
-        <a href="{{route('perfil', ['user'=>$user->username])}}" class="text-decoration-none text-body">
-            <div class="card" style="width: 18rem;margin:30px;">
-            <img style="height: 200px;" src="{{$user->image}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h3>{{$user->name}} {{$user->surname}}</h3>
-                <h5>{{$user->username}}</h5>
-            </div>
-            <p class="card-text">{{$user->pais}}</p>
-
-            </div>
-
-        </a>
 
         @endforeach
-    </div>
-    </div>
 
-
-</div>
-
-
-@endsection

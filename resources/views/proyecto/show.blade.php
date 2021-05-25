@@ -94,16 +94,15 @@
                 var dataWidth = $(this).data('valor');
                 $(this).css("width", dataWidth + "%");
                 if (dataWidth <= 25) {
-                    $(this).css("background-color", "red");
+                    $(this).css("background-color", "#DD0426");
                 } else if (dataWidth > 25 && dataWidth <= 50) {
-                    $(this).css("background-color", "orange");
+                    $(this).css("background-color", "#EA7317");
                 } else if (dataWidth > 50 && dataWidth <= 75) {
-                    $(this).css("background-color", "yellow");
+                    $(this).css("background-color", "#F7B32B");
                 } else if (dataWidth > 75) {
-                    $(this).css("background-color", "green");
+                    $(this).css("background-color", "#5AFF15");
                 }
             });
-
 
         });
 
@@ -230,7 +229,7 @@
                         <p class="ventaj{{$plan->id}} card-text">{{$plan->descripcion}}</p>
                         <p class="card-text">Participantes: {{$plan->participantes}}</p>
                         <p class="card-text text-muted">Fecha de entrega estimada:<br> {{$plan->fechaEntrega}}</p>
-                        <a href="{{route('pagar',['code'=>encrypt($plan->id),'id'=>$plan->id])}}" class="card-text btn btn-info">Pagar</a>
+                        <a style="background-color:#272932;border:#272932;color:white" href="{{route('pagar',['code'=>encrypt($plan->id),'id'=>$plan->id])}}" class="card-text btn btn-info">Pagar</a>
                     </div>
                 </div>
                 @endforeach

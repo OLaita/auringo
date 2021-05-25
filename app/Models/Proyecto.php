@@ -30,4 +30,8 @@ class Proyecto extends Model
     public function cate(){
         return $this->belongsTo('App\Models\Categoria','idCategoria','id');
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User','iduser','id');
+    }
 }

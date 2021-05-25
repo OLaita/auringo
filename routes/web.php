@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
 use App\Models\Plan;
 use App\Models\Proyecto;
 use App\Models\Media;
@@ -16,6 +17,8 @@ use App\Models\Novedades;
 use App\Models\Categoria;
 use App\Models\User;
 use App\Models\PlanUser;
+use Facade\FlareClient\View;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 
 /*
@@ -85,12 +88,31 @@ Route::group(['prefix' => 'perfil'], function () {
         return view('user.profile',compact('proyectos','user','planuser','finPro'));
     })->name('perfil');
 
-    Route::get('/{user}/proyectosFinanciados',function($user){
+    Route::get('/{user}/mPro',function($user){
+        $user = User::where('username',$user)->first();
+        $proyectos = Proyecto::where('iduser',$user->id)->get();
+        $planuser = PlanUser::where('idUsuario',$user->id)->get();
+        $finPro = Proyecto::class;
+        return view('user.mPro',compact('proyectos','user','planuser','finPro'));
+    })->name('perfil3');
+
+    Route::get('/{user}/proF',function($user){
         $user = User::where('username',$user)->first();
         $planuser = PlanUser::where('idUsuario',$user->id)->get();
         $finPro = Proyecto::class;
-        return view('user.profile2',compact('user','planuser','finPro'));
+        return view('user.proF',compact('user','planuser','finPro'));
     })->name('perfil2');
+
+
+    Route::get('/{user}/edit',function($user){
+        if($user == Auth::user()->username){
+            $user = User::where('username',$user)->first();
+            return view('user.editUser',compact('user'));
+        }
+        return redirect()->route('home');
+    })->name('editUser');
+
+    Route::put('/{id}',[UserController::class, 'update'])->name('actUser');
 
 });
 

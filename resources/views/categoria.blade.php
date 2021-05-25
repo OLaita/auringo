@@ -129,11 +129,11 @@
           $('.barras').each(function() {
              var dataWidth = $(this).data('valor');
              $(this).css("width", dataWidth + "%");
-            if (dataWidth <=25) { $(this).css("background-color", "red"); }
-                else if (dataWidth >25 && dataWidth <=50){ $(this).css("background-color", "orange"); }
-                else if (dataWidth >50 && dataWidth<=75) { $(this).css("background-color", "yellow"); }
-                else if (dataWidth >75) { $(this).css("background-color", "green"); }
-          });
+             if (dataWidth <=25) { $(this).css("background-color", "#DD0426"); }
+                        else if (dataWidth >25 && dataWidth <=50){ $(this).css("background-color", "#EA7317"); }
+                        else if (dataWidth >50 && dataWidth<=75) { $(this).css("background-color", "#F7B32B"); }
+                        else if (dataWidth >75) { $(this).css("background-color", "#5AFF15"); }
+                  });
 
         });
         </script>

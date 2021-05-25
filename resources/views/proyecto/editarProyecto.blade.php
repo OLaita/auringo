@@ -32,7 +32,7 @@
 
     </style>
     <div class="container">
-        <form id="proUpdate" method="POST" action="{{route('pro.update',$pro->id)}}" enctype="multipart/form-data">
+        <form id="proUpdate" method="POST" action="{{route('pro.update',$user->id)}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group row d-flex justify-content-center">
