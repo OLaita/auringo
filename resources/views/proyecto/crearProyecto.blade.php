@@ -38,7 +38,7 @@
 
 
                 <div class="col-md-5">
-                    <input placeholder="Titulo" id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                    <input placeholder="Titulo" id="title" type="text" maxlength="17" class="form-control" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
                     <div class="col-1"></div>
                     <div class="col-6 d-flex justify-content-center align-items-center miniwidth">
                         <i style="position: absolute;z-index:-2;" class="bi bi-cloud-arrow-up-fill upload-icon fa-5x"></i><br>
-                        <input style="opacity:0" class="dropzone " id="upload-input" name="image" type="file" onchange="previewFile()"><br><br>
+                        <input style="opacity:0" class="dropzone file" id="upload-input" name="image" type="file" onchange="previewFile()"><br><br>
                         <img id="preview" style="margin-top: 1vh;height: 80%; position: absolute; z-index: -1;max-width: 90%;" src="" height="150" alt="Image preview...">
                     </div>
 
@@ -109,6 +109,7 @@
     </div>
 
     <script>
+
         $("#btnSubmit").click(function() {
             $("#al").addClass("d-none");
             $("#al").html("");
@@ -142,6 +143,10 @@
                 $("#al").append("<ul><li>El IBAN esta mal</li></ul>");
             }
 
+            if($(".file").prop('files')[0] == undefined){
+                error = true;
+                $("#al").append("<ul><li>No hay imagen</li></ul>");
+            }
 
             if (error) {
                 $("#al").removeClass("d-none");

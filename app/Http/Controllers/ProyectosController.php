@@ -43,7 +43,6 @@ class ProyectosController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate([
             'title' => 'required|unique:proyectos|max:17',
             'descC' => 'required',
@@ -182,7 +181,11 @@ class ProyectosController extends Controller
     {
         $proyecto = Proyecto::find($id);
 
-        $pathI=$request->file('image')->store('fotosPro','public');
+        if($request->file('image') != null){
+            $pathI=$request->file('image')->store('fotosPro','public');
+        }else{
+            $pathI = $proyecto->fotoProyecto;
+        }
         $proyecto->update([
             'title'=>$request->title,
             'desCorta'=>$request->descC,

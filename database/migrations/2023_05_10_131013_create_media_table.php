@@ -18,7 +18,7 @@ class CreateMediaTable extends Migration
             $table->string('enlace');
             $table->boolean('videoImg');
             $table->unsignedBigInteger('idProyecto');
-            $table->foreign('idProyecto')->references('id')->on('proyectos');
+            $table->foreign('idProyecto')->references('id')->on('proyectos')->onDelete('cascade');
         });
     }
 

@@ -26,7 +26,7 @@ class CreateProyectosTable extends Migration
             $table->date('fechaInicio');
             $table->date('fechaFin');
             $table->string('fotoProyecto')->nullable();
-            $table->foreign('iduser')->references('id')->on('users');
+            $table->foreign('iduser')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('idCategoria')->references('id')->on('categorias');
         });
     }

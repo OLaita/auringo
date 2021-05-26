@@ -105,7 +105,7 @@
                                     <section class="grafico-barras">
                                         <ul>
                                             <span class="barra-fondo">
-                                                <li id="financioacion{{$pro->id}}" class="barras d-flex" data-valor=""></li>
+                                                <li id="financioacion{{$pro->id}}" class="barras d-flex align-items-center" data-valor=""></li>
                                             </span>
                                             <span class="barra-fondo">
                                         </ul>

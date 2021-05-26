@@ -20,6 +20,7 @@ use App\Models\PlanUser;
 use Facade\FlareClient\View;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', [HomeController::class, 'welcome'])->withoutMiddleware('auth');
+Route::get('/', [HomeController::class, 'welcome'])->withoutMiddleware('auth')->name('welcome');
 
 Auth::routes();
 
@@ -43,7 +44,6 @@ Route::resources([
     'home'=>HomeController::class,
     'com'=>ComentariosController::class
 ]);
-
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -80,6 +80,8 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'perfil'], function () {
 
+    Route::resource('user',UserController::class);
+
     Route::get('/{user}',function($user){
         $user = User::where('username',$user)->first();
         $proyectos = Proyecto::where('iduser',$user->id)->get();
@@ -113,6 +115,8 @@ Route::group(['prefix' => 'perfil'], function () {
     })->name('editUser');
 
     Route::put('/{id}',[UserController::class, 'update'])->name('actUser');
+    Route::delete('/',[UserController::class, 'destroy'])->name('delUser');
+    Route::post('/{id}',[UserController::class, 'changePassword'])->name('udPass');
 
 });
 

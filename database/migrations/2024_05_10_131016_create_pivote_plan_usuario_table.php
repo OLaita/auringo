@@ -13,14 +13,14 @@ class CreatePivotePlanUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan_user', function (Blueprint $table) {
+        Schema::create('plan_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUsuario');
             $table->unsignedBigInteger('idPlan');
             $table->unsignedBigInteger('idProyecto');
-            $table->foreign('idPlan')->references('id')->on('plans');
-            $table->foreign('idProyecto')->references('id')->on('proyectos');
-            $table->foreign('idUsuario')->references('id')->on('users');
+            $table->foreign('idPlan')->references('id')->on('plans')->onDelete('cascade');
+            $table->foreign('idProyecto')->references('id')->on('proyectos')->onDelete('cascade');
+            $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreatePivotePlanUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pivote_plan_usuario');
+        Schema::dropIfExists('plan_users');
     }
 }

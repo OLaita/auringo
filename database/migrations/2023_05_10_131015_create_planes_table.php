@@ -22,7 +22,7 @@ class CreatePlanesTable extends Migration
             $table->integer('participantes');
             $table->date('fechaEntrega');
             $table->unsignedBigInteger('idProyecto');
-            $table->foreign('idProyecto')->references('id')->on('proyectos');
+            $table->foreign('idProyecto')->references('id')->on('proyectos')->onDelete('cascade');
         });
     }
 

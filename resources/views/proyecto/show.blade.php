@@ -28,7 +28,7 @@
         width: 0%;
     }
     #imgcarro{
-                max-height: 60vh;
+                max-height: 53vh;
             }
     video{
 
@@ -117,7 +117,7 @@
 
 
     <div style="text-align:center" class="form-group row d-flex justify-content-center">
-        <div class="col-md-6">
+        <div style="word-wrap: break-word;" class="col-md-6">
             <h3 style="color:#3A3A3A">{{ $pro->desCorta }}</h3>
         </div>
     </div>
@@ -170,7 +170,7 @@
             <section style="margin-top:10%" class="grafico-barras">
                 <ul>
                     <span class="barra-fondo">
-                        <li id="financioacion{{$pro->id}}" class="barras d-flex" data-valor=""></li>
+                        <li id="financioacion{{$pro->id}}" class="barras d-flex align-items-center" data-valor=""></li>
                     </span>
                     <span class="barra-fondo">
                 </ul>

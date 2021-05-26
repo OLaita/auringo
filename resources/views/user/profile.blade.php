@@ -56,7 +56,7 @@
                 @if ($user->biografia == null)
                     <p>Aún no tienes biografia</p>
                 @else
-                <p>{{$user->biografia}}</p>
+                <p style="word-wrap: break-word;">{{$user->biografia}}</p>
                 @endif
 
             </div>
@@ -65,12 +65,12 @@
 
     </div>
     <h4 style="margin-top:50px;color:#212529" class="d-flex justify-content-between">
-    <a role="button" id="mPro">Mis Proyectos</a>
-    <a role="button" id="proF">Proyectos Financiados</a>
+    <a style="float:left"role="button" id="mPro">Mis Proyectos</a>
+    <a style="float:right" role="button" id="proF">Proyectos Financiados</a>
 </h4>
     <hr>
 
-    <div id="projdiv" class="d-flex flex-wrap">
+    <div id="projdiv" class="d-flex flex-wrap justify-content-center">
 
 
 

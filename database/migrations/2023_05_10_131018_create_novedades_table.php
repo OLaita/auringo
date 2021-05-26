@@ -19,7 +19,7 @@ class CreateNovedadesTable extends Migration
             $table->string('titulo');
             $table->string('descripcion');
             $table->string('fechaActualizacion');
-            $table->foreign('idProyecto')->references('id')->on('proyectos');
+            $table->foreign('idProyecto')->references('id')->on('proyectos')->onDelete('cascade');
         });
     }
 

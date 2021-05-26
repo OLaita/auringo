@@ -2,7 +2,7 @@
 @section('content')
 <div style="flex-wrap:wrap" class=" container d-flex justify-content-around">
     @foreach ($categorias as $cat)
-        <span style="color:#7E6969; margin:5px"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$cat->categoria])}}>{{$cat->categoria}}</a></span>
+        <span style="color:#7E6969; margin:5px"><a id="categorias"  style="color:#7E6969" href={{route("buscarCategoria",['name'=>$cat->categoria])}}>{{$cat->categoria}}</a></span>
     @endforeach
 </div>
 <style>
@@ -74,7 +74,7 @@
  }
 
 @media ( max-width: 600px){
-    a{
+    #categorias{
         width: 100vh;
     }
     #midtext{
@@ -148,9 +148,8 @@
             <section class="grafico-barras">
 				<ul>
              <span class="barra-fondo">
-             <li id="financioacion{{$pro->id}}" class="barras d-flex" data-valor=""></li>
+             <li id="financioacion{{$pro->id}}" class="barras d-flex align-items-center" data-valor=""></li>
              </span>
-             <span class="barra-fondo">
              </ul>
             </section>
             <div class="d-flex justify-content-around">
