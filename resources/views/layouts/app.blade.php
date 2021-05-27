@@ -40,6 +40,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+
     <style>
 
 #fom-busc{
@@ -193,6 +197,11 @@
 
           <i style="margin-right:10px" class="bi bi-gear-fill"></i>{{ __('Configuración') }}
        </a>
+       @if(Auth::user()->hasRole('admin'))
+       <a class="dropdown-item" href="{{route('admin.panel')}}">
+        <i style="margin-right:10px" class="bi bi-gear-fill"></i>{{ __('Panel de Administrador') }}
+     </a>
+     @endif
 
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
@@ -207,6 +216,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
+              @if(Auth::user()->hasRole('user'))
                 <p style="margin-left:6%;margin-top:10px">Mis proyectos</p>
                 <hr>
                @foreach ($misproyectos as $mpro)
@@ -223,7 +233,7 @@
 
                 <a class="dropdown-item" href="{{ route('newProyect') }}"><i style="margin-left: 45%;"class="bi bi-plus-circle "></i></a>
 
-             </a>
+             @endif
 
         </div>
         </li>

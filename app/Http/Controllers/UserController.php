@@ -11,12 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function update(Request $request,$id){
-        //dd($request->biografia);
         $user = User::find($id);
+
+        if($request->hasFile('avatar')){
+            $pathI=$request->file('avatar')->store('avateres','public');
+            $pathI = "/storage/".$pathI;
+        }else{
+            $pathI = $user->image;
+        }
 
         $user->update([
             'username'=>$request->username,
-            'biografia'=>$request->biografia
+            'biografia'=>$request->biografia,
+            'image'=>$pathI
         ]);
 
         return redirect()->route('perfil',['user'=>$request->username]);
@@ -60,5 +67,25 @@ class UserController extends Controller
         }else{
             return redirect()->back()->withErrors(['La contraseña no coincide con la actual']);
         }
+    }
+
+    /*           PARTE API           */
+
+    public function store(Request $request)
+    {
+        $user = new User;
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->country = $request->country;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+    }
+
+    public function show($id)
+    {
+        return User::where('id', $id)->get();
     }
 }

@@ -7,11 +7,16 @@
         @csrf
         @method('PUT')
 
-
+<div class="d-flex justify-content-center">
         <div style="margin-top:5%"class="d-flex justify-content-center flex-direction-column">
-            <img style="width:100px"class="rounded-circle" src={{$user->image}}>
+            <img style="width:100px" class="rounded-circle" src={{$user->image}}>
         </div>
-
+        <i style="margin-top:70px;margin-right:30px;margin-left:30px;" class="bi bi-arrow-left-right fa-3x"></i>
+        <div class="d-flex justify-content-center align-items-center miniwidth" style="width:100px;height:100px;margin-top: 50px;">
+            <input id="avatar" style="opacity:0;height: 100px;width: 100px;position: absolute;" class="dropzone file" id="upload-input" name="avatar" type="file">
+            <img id="preview" style="width:100px;height:100px;" class="rounded-circle" src="" alt="Nueva imagen">
+        </div>
+    </div>
         <div class="mt-2 form-group row d-flex justify-content-center">
             <div class="col-md-5">
                 <input placeholder="username" id="username" type="text" class="form-control text-center" name="username" value="{{ $user->username }}" required autofocus>
@@ -176,6 +181,22 @@
             }
 
         });
+
+        $("#avatar").change(function(){
+            var preview = document.querySelector('#preview');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        })
 
     });
 </script>

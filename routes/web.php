@@ -9,6 +9,7 @@ use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Models\Plan;
 use App\Models\Proyecto;
 use App\Models\Media;
@@ -77,6 +78,17 @@ Route::group(['prefix' => 'auth'], function () {
     Route::put('/google-login', [GoogleController::class, 'googleLogin'])->name('googleLogin');
 
 });
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('admin',AdminController::class);
+
+    Route::get('/panel',[AdminController::class,'index'])->name('admin.panel');
+
+    Route::get('/user/list', [AdminController::class, 'getUsers'])->name('user.list');
+});
+
+
 
 Route::group(['prefix' => 'perfil'], function () {
 

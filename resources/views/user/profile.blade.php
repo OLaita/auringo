@@ -35,7 +35,7 @@
 </style>
 <div class="container">
     <div style="margin-top:5%"class="d-flex justify-content-center flex-direction-column">
-        <img style="width:100px"class="rounded-circle" src={{$user->image}}>
+        <img style="width:100px;height:100px"class="rounded-circle" src={{$user->image}}>
     </div>
     <div style="color:#212529" class="d-flex justify-content-center flex-direction-column">
         <h3>{{$user->username}}</h3>
