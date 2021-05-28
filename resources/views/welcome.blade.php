@@ -181,9 +181,11 @@
     <div id="midtext" style="margin-top:5%"class="justify-content-center">
         <h2 style="color:white;"><strong>Empieza ya tu aventura!</strong></h2><br>
         <p>Somos un equipo de apasionados por la cultura y la creatividad que te acompañaremos en toda tu aventura. Con las mejores herramientas, el mayor ecosistema de Europa de mecenas entusiastas del crowdfunding y el porcentaje de éxito más alto del mundo! ¿A qué estás esperando?</p><br>
-        <button style="background-color:#272932;border:#272932" type="submit" class="btn btn-primary btnmini">
+        <div>
+        <a href="{{ route('newProyect') }}" style="background-color:#272932;border:#272932" type="submit" class="btn btn-primary btnmini">
             {{ __('Crea tu proyecto') }}
-        </button><br><br>
+        </a><br><br>
+    </div>
     </div>
 
 </div>

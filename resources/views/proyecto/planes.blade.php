@@ -43,7 +43,7 @@
                 </div>
 
 <!-- Button trigger modal -->
-<a id="btnplanes" style="color:#272932"href="#staticBackdrop" role="button" data-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-4x"></i></a>
+<a id="btnplanes" style="color:#272932"href="#staticBackdrop" role="button" data-bs-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-4x"></i></a>
 
 
 <!-- Modal -->
@@ -51,7 +51,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Nuevo Plan</h5>
-        <i class="bi bi-x-lg" data-dismiss="modal"></i>
+        <i class="bi bi-x-lg" data-bs-dismiss="modal"></i>
       </div>
       <div class="modal-body">
         <form method="POST" action="{{ route('newPlan') }}" enctype="multipart/form-data">
@@ -90,7 +90,7 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-success">Guardar</button>
         </form>
       </div>

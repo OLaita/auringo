@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserApiController extends BaseController
 {
@@ -20,14 +21,16 @@ class UserApiController extends BaseController
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:3'],
         ]);
-        $user = User::create([
-            'name' => $dataValidated['name'],
+        $avatar = Storage::url('usericon.png');
+        $user = User::create([$dataValidated
+            /*'name' => $dataValidated['name'],
             'surname' => $dataValidated['surname'],
             'country' => $dataValidated['country'],
             'username' => $dataValidated['username'],
             'email' => $dataValidated['email'],
             'password' => Hash::make($dataValidated['password']),
-            'rol_id' => 2
+            'rol_id' => 2,
+            'image' => $avatar*/
         ]);
         $token = $user->createToken('AppNAME')->accessToken;
 

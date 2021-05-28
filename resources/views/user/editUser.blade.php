@@ -49,8 +49,8 @@
 
     <div style="margin-top:20px">
         <button id="btnUpdate" class="btn btn-success" type="button">Actualizar</button>
-        <a id="btnBorrar"  href="#borrar" role="button" data-toggle="modal" class="btn btn-danger" type="button">Borrar Usuario</a>
-        <a id="btnCambiar"  href="#cambiarPass" role="button" data-toggle="modal" class="btn btn-warning" type="button">Cambiar Contrseña</a>
+        <a id="btnBorrar"  href="#borrar" role="button" data-bs-toggle="modal" data-bs-target="#borrar" class="btn btn-danger" type="button">Borrar Usuario</a>
+        <a id="btnCambiar"  href="#cambiarPass"  data-bs-target="#cambiarPass" role="button" data-bs-toggle="modal" class="btn btn-warning" type="button">Cambiar Contrseña</a>
 
     </div>
     <div id="error" class="text-danger">
@@ -63,11 +63,11 @@
 
 
 <!-- MODAL BORRAR USUARIO -->
-<div class="modal fade" id="borrar" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  <div class="modal-dialog">
+<div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Borrar usuario</h5>
-        <i class="bi bi-x-lg" data-dismiss="modal"></i>
+        <i class="bi bi-x-lg" data-bs-dismiss="modal"></i>
       </div>
       <div class="modal-body">
           <h6>¿Estas seguro?</h6>
@@ -77,7 +77,7 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
           <button type="submit" class="btn btn-success">Si</button>
         </form>
       </div>
@@ -88,11 +88,11 @@
 <!-- FIN MODAL BORRAR USUARIO -->
 
 <!-- MODAL CAMBIAR CONTRASEÑA -->
-<div class="modal fade" id="cambiarPass" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  <div class="modal-dialog">
+<div class="modal fade" id="cambiarPass" tabindex="-1" aria-labelledby="staticBackdropLabe" aria-hidden="true">  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Cambiar COntraseña</h5>
-        <i class="bi bi-x-lg" data-dismiss="modal"></i>
+        <h5 class="modal-title" id="staticBackdropLabe">Cambiar COntraseña</h5>
+        <i class="bi bi-x-lg" data-bs-dismiss="modal"></i>
       </div>
       <div class="modal-body">
         <form method="POST" action="{{route('udPass',['id'=>$user->id])}}">
@@ -119,7 +119,7 @@
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-success">Cambiar</button>
         </form>
       </div>

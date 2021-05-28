@@ -61,7 +61,7 @@ class UserController extends Controller
             $user->update([
                 'password'=>Hash::make($request->password),
             ]);
-            Auth::logout();
+            Auth::logoutOtherDevices($request->oldPassword);
             return redirect()->route('login');
 
         }else{

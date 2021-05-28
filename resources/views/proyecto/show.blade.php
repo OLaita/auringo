@@ -241,7 +241,7 @@
             <h3>Novedades</h3>
             @auth
             @if (Auth::user()->id == $proyectos[0]['iduser'])
-            <span><a id="btnnovedades" style="color:#272932" href="#staticBackdrop" role="button" data-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-1x"></i></a>
+            <span><a id="btnnovedades" style="color:#272932" href="#staticBackdrop" role="button" data-bs-toggle="modal"><i class="ml-3 bi bi-plus-circle fa-1x"></i></a>
             </span>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -249,7 +249,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Nueva Actualización</h5>
-                            <i class="bi bi-x-lg" data-dismiss="modal"></i>
+                            <i class="bi bi-x-lg" data-bs-dismiss="modal"></i>
                         </div>
                         <div class="modal-body">
                             <form method="POST" action="{{ route('newAct') }}" enctype="multipart/form-data">
@@ -271,7 +271,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-success">Guardar</button>
                             </form>
                         </div>
@@ -369,46 +369,50 @@
                     <p style="margin-top:20px">{{ $comment->comentario }} <span class="text-muted">(Modificado)</span></p>
                     @endif
                     @auth
-                    @if (Auth::user()->hasRole('admin'))
+                    @if (Auth::user()->id == $comment->idUser)
                     <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
                         @csrf
                         @method("DELETE")
                         <td><button class="btn btn-danger">Borrar</button></td>
                     </form>
-                    @elseif(Auth::user()->id == $comment->idUser)
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal{{$comment->id}}">
+                        Mod
+                    </button>
+                    @elseif(Auth::user()->hasRole('admin'))
                     <form action="{{ route('com.destroy', $comment->id) }}" method="POST">
                         @csrf
                         @method("DELETE")
                         <td><button class="btn btn-danger">Borrar</button></td>
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Mod
-                        </button>
                     </form>
                     @endif
+
+                    <div class="modal fade" id="exampleModal{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{$comment->id}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="exampleModalLabel{{$comment->id}}">Modificar comentario</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('com.update', $comment->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <label for="com{{$comment->id}}">Modificar Comentario</label>
+                                        <input id="com{{$comment->id}}" name="udCom" type="text" value="{{$comment->comentario}}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     @endauth
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-dark" id="exampleModalLabel">Modificar comentario</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form action="{{ route('com.update', $comment->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-body">
-                                    <input name="udCom" type="text" value="{{$comment->comentario}}">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
                 @endforeach
             </div>
         </div>

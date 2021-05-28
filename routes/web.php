@@ -80,12 +80,18 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin','middleware' => ['auth','role:admin']], function () {
     Route::resource('admin',AdminController::class);
 
     Route::get('/panel',[AdminController::class,'index'])->name('admin.panel');
 
     Route::get('/user/list', [AdminController::class, 'getUsers'])->name('user.list');
+    Route::get('/pro/list', [AdminController::class, 'getProyects'])->name('pro.list');
+
+    Route::post('/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('reset.password');
+    Route::delete('/delUser/{id}',[AdminController::class, 'destroyUser'])->name('deleteUser');
+    Route::delete('/delPro/{id}',[AdminController::class, 'destroyProyect'])->name('delete.pro');
+
 });
 
 
@@ -124,7 +130,7 @@ Route::group(['prefix' => 'perfil'], function () {
             return view('user.editUser',compact('user'));
         }
         return redirect()->route('home');
-    })->name('editUser');
+    })->middleware('auth')->name('editUser');
 
     Route::put('/{id}',[UserController::class, 'update'])->name('actUser');
     Route::delete('/',[UserController::class, 'destroy'])->name('delUser');
@@ -156,7 +162,7 @@ Route::group(['prefix' => 'proyecto'], function () {
             return view('proyecto.editarProyecto',compact('pro'));
         }
         return redirect()->route('home');
-    })->name('editarProyecto');
+    })->name('editarProyecto')->middleware('auth');
 
     Route::delete('/plan/{id}', function($id){
         $plan = Plan::find($id);

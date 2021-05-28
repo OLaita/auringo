@@ -1,8 +1,9 @@
 $(document).ready(function(){
 
 		$.ajax({
-			url:"{{url('/user/list')}}",
+			url:"{{route('user.list')}}",
 			success:function(data){
+        console.log("GAOSAJD");
                 console.log(data);/*
 				var table;
 				if ( $.fn.DataTable.isDataTable('#userTable') ) {
