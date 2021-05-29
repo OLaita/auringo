@@ -19,10 +19,10 @@ use App\Http\Controllers\Api\UserApiController;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::resource('users',UserController::class);
+    Route::resource('users',UserApiController::class);
 
-    Route::post('users/update/{id}',[UserController::class,'update']);
-    Route::post('users/destroy/{id}',[UserController::class,'destroy']);
+    Route::post('users/update/{id}',[UserApiController::class,'update']);
+    Route::delete('users/destroy/{id}',[UserApiController::class,'delete']);
 });
 Route::post('register',[UserApiController::class,'register']);
 Route::post('login', [UserApiController::class,'login']);

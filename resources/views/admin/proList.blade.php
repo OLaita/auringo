@@ -13,12 +13,12 @@
           <tbody>
             @foreach ($proyectos as $pro)
               <tr>
-                <th>{{$pro->id}}</th>
+                <th style="padding-top: 4%;">{{$pro->id}}</th>
                 <th><img src="{{asset('storage/' .$pro->fotoProyecto)}}" style="width:100px;height:100px;" class="rounded-circle"></th>
-                <td><a href="{{route('proyecto', ['title' => $pro->title])}}">{{$pro->title}}</a></td>
-                <td>{{$pro->meta}}</td>
-                <td>{{$pro->fechaFin}}</td>
-                <td>{{$pro->cate->categoria}}</td>
+                <td style="padding-top: 4%;"><a href="{{route('proyecto', ['title' => $pro->title])}}">{{$pro->title}}</a></td>
+                <td style="padding-top: 4%;">{{$pro->meta}}</td>
+                <td style="padding-top: 4%;">{{$pro->fechaFin}}</td>
+                <td style="padding-top: 4%;">{{$pro->cate->categoria}}</td>
                 <td>
                   <a id="btnBorrar"  href="#borrar{{$pro->id}}" role="button" data-bs-toggle="modal" data-bs-target="#borrar{{$pro->id}}" class="btn btn-danger" type="button">Borrar Proyecto</a>
                   <!-- MODAL BORRAR USUARIO -->

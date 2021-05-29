@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
         $user->image = $avatar;
         $user->timestamps = false;
         $user->save();
-        $user->roles()->attach($role_user);
+        $user->rol()->attach($role_user);
 
 
         $user = new User();
@@ -49,7 +49,7 @@ class UserTableSeeder extends Seeder
         $user->image = $avatar;
         $user->timestamps = false;
         $user->save();
-        $user->roles()->attach($role_admin);
+        $user->rol()->attach($role_admin);
 
     }
 }

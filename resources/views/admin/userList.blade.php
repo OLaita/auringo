@@ -13,12 +13,12 @@
           <tbody>
             @foreach ($users as $user)
               <tr>
-                <th>{{$user->id}}</th>
+                <th style="padding-top: 4%;">{{$user->id}}</th>
                 <th><img src="{{$user->image}}" style="width:100px;height:100px;" class="rounded-circle"></th>
-                <td><a href="{{ route('perfil',['user'=>$user->username]) }}">{{$user->username}}</a></td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->name." ".$user->surname}}</td>
-                <td>{{$user->roles->rol}}</td>
+                <td style="padding-top: 4%;"><a href="{{ route('perfil',['user'=>$user->username]) }}">{{$user->username}}</a></td>
+                <td style="padding-top: 4%;">{{$user->email}}</td>
+                <td style="padding-top: 4%;" >{{$user->name." ".$user->surname}}</td>
+                <td style="padding-top: 4%;">{{$user->roles->rol}}</td>
                 <td>
                   <a id="btnBorrar"  href="#borrar{{$user->id}}" role="button" data-bs-toggle="modal" data-bs-target="#borrar{{$user->id}}" class="btn btn-danger" type="button">Borrar Usuario</a>
                   <!-- MODAL BORRAR USUARIO -->

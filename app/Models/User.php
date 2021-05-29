@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, CanResetPassword;
+    use HasFactory, Notifiable, CanResetPassword, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +56,13 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsTo('App\Models\Roles','rol_id','id');
+    }
+
+    public function rol()
+    {
+        return $this
+            ->belongsToMany('App\Models\Roles')
+            ->withTimestamps();
     }
 
     public function authorizeRoles($roles)

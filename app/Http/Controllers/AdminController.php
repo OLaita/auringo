@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Comentarios;
 use App\Models\Proyecto;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
@@ -60,6 +61,9 @@ class AdminController extends Controller
             return redirect()->back()->withErrors(['Tiene un proyecto sin vencer']);
 
         }
+
+        $com = Comentarios::where('idUser',$id);
+        $com->delete();
 
         $user = User::find($id);
         $user->delete();

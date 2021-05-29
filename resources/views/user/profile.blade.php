@@ -67,7 +67,7 @@
     <h4 style="margin-top:50px;color:#212529" class="d-flex justify-content-between">
     <a style="float:left"role="button" id="mPro">Mis Proyectos</a>
     <a style="float:right" role="button" id="proF">Proyectos Financiados</a>
-</h4>
+    </h4>
     <hr>
 
     <div id="projdiv" class="d-flex flex-wrap justify-content-center">
