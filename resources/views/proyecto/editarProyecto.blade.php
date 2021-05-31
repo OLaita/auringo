@@ -131,9 +131,13 @@
                 $("#al").append("<ul><li>El IBAN esta mal</li></ul>");
             }
 
-            if($(".file").prop('files')[0] == undefined){
-                error = true;
-                $("#al").append("<ul><li>No hay imagen</li></ul>");
+            var fp = {!! json_encode($pro->fotoProyecto) !!};
+
+            if(fp == null){
+                if($(".file").prop('files')[0] == undefined){
+                    error = true;
+                    $("#al").append("<ul><li>No hay imagen</li></ul>");
+                }
             }
 
             if (error) {

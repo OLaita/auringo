@@ -34,6 +34,15 @@
     }
 </style>
 <div class="container">
+
+    @auth
+    @if(Auth::user()->id == $user->id)
+    <form action="{{ route('editUser',['user'=>$user->username]) }}" method="GET">
+        @csrf
+        <button style="background-color:#272932;border:#272932" class="btn btn-danger">Editar Perfil</button>
+    </form>
+    @endif
+    @endauth
     <div style="margin-top:5%"class="d-flex justify-content-center flex-direction-column">
         <img style="width:100px;height:100px"class="rounded-circle" src={{$user->image}}>
     </div>

@@ -223,14 +223,13 @@
                 <p style="margin-left:6%;margin-top:10px">Mis proyectos</p>
                 <hr>
                @foreach ($misproyectos as $mpro)
-               @if ($mpro->iduser == Auth::user()->id)
-
-               <a href="{{route('proyecto', ['title' => $mpro->title])}}" class="text-decoration-none text-body">
-                      <div style="margin:3px;max-width:100%" class="d-flex">
-                        <img style="width: 70px;height: 52px;margin: 5%;" src="{{asset('storage/'.$mpro->fotoProyecto)}}">
-                        <p style="margin-top: 10%;"><strong>{{$mpro->title}}</strong></p>
-                      </div>
-                    </a>
+                    @if ($mpro->iduser == Auth::user()->id)
+                      <a href="{{route('proyecto', ['title' => $mpro->title])}}" class="text-decoration-none text-body">
+                        <div style="margin:3px;max-width:100%" class="d-flex">
+                          <img style="width: 70px;height: 52px;margin: 5%;" src="{{asset('storage/'.$mpro->fotoProyecto)}}">
+                          <p style="margin-top: 10%;"><strong>{{$mpro->title}}</strong></p>
+                        </div>
+                      </a>
                     @endif
                 @endforeach
 

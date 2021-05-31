@@ -6,7 +6,8 @@
         <span style="color:#7E6969; margin:5px"><a style="color:#7E6969" href={{route("buscarCategoria",['name'=>$cat->categoria])}}>{{$cat->categoria}}</a></span>
     @endforeach
 </div>
-<div class="container">
+<hr>
+<div style="margin-top:3%;" class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

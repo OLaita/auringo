@@ -188,7 +188,7 @@
             </div>
             <div class="col-xs-4 d-flex  justify-content-center flex-column">
                 <p class="card-text d-flex flex-column"><span style="font-size:25px"><strong>{{ date_diff(new \DateTime($pro->fechaInicio), new \DateTime($pro->fechaFin))->format("%a") }}</strong></span>
-                    <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span>
+                    <span style="color:#7E6969;"><strong>Días </strong></span>
                 </p>
             </div>
             <a href="#planes" style="margin-top:10%;background-color:#272932;border:#272932" type="submit" class="btn btn-primary btnmini">
@@ -198,7 +198,7 @@
 
     </div>
     @endforeach
-    <br><br><br>
+    <br>
     <div style="word-break: break-word;" class="d-flex flex-column flex-wrap col-12">
         <p style="width:100%" id="section"></p>
     </div>

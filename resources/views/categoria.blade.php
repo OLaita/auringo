@@ -96,8 +96,8 @@
     }
 }
     </style>
-
-    <div class="container">
+<hr>
+    <div style="margin-top:3%;" class="container">
 <h3 style="margin-top:4%;color:#212529">{{$categoria->categoria}}</h3>
 <div style="overflow: hidden;"class="d-flex justify-content-center flex-wrap">
 
@@ -154,7 +154,7 @@
             </section>
             <div class="d-flex justify-content-around">
                 <p class="card-text d-flex flex-column"><span><strong>{{ date_diff(new \DateTime($pro->fechaInicio), new \DateTime($pro->fechaFin))->format("%a") }}</strong></span>
-                <span style="color:#7E6969;"><strong>DIAS MÁS</strong></span></p>
+                <span style="color:#7E6969;"><strong>Días </strong></span></p>
             <p  class="card-text d-flex flex-column"><span><strong>{{ $pro->financiacionActual }}€</strong></span>
                 <span style="color:#7E6969;"><strong>de {{$pro->meta}}€</strong></span></p>
             </div>

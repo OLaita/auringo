@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,8 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('home',compact('categorias'));
+        /*$categorias = Categoria::all();
+        return view('home',compact('categorias'));*/
+        return redirect()->route('descubrir');
     }
 
     public function welcome()
@@ -41,10 +42,6 @@ class HomeController extends Controller
         $totProyectos = Proyecto::all()->count();
         $sumFinanciacion = Proyecto::all()->sum("financiacionActual");
         return view('welcome', compact('categorias','proyectos','totUsuarios','totProyectos','sumFinanciacion'));
-    }
-
-    public function descubrir(){
-
     }
 
 }

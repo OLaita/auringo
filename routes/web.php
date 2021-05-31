@@ -61,7 +61,7 @@ Route::get("/categoria/{name}", function($name){
     $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->where('idCategoria',$categoria->id)->get();
     return view('categoria',compact('categoria','proyectos','categorias'));
 })->name("buscarCategoria");
-Route::get('/newProject', [App\Http\Controllers\ProyectosController::class, 'index'])->name('newProyect')->middleware('auth');
+Route::get('/newProject', [App\Http\Controllers\ProyectosController::class, 'index'])->name('newProyect')->middleware('auth','role:user');
 
 Route::get('/search',function(Request $request){
     $proyectos = Proyecto::where("fechaFin", ">=" , now()->format('Y-m-d'))->where('title','like','%'.$request->search.'%')->orWhere('desCorta','like','%'.$request->search.'%')->get();
